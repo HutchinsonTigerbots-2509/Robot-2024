@@ -4,7 +4,7 @@ Team 2509's 'crescendo' 2024 FRC competition main robot code
 
 
 ### Authors
-[Bizaare](https://github.com/bizaare)<br/>
+[Levi](https://github.com/bizaare)<br/>
 [TheOven2](https://github.com/TheOven2)<br/>
 
 ### Mentors
