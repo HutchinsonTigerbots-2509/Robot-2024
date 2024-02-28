@@ -31,14 +31,14 @@ import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
 
 public class RobotContainer {
-  private double MaxSpeed = 6; // 6 meters per second desired top speed
+  private double MaxSpeed = 2; // 6 meters per second desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
   private Shooter sShooter = new Shooter();
   private Intake sIntake = new Intake();
   private Door sDoor = new Door();
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  private final CommandXboxController joystick = new CommandXboxController(0); // My joystick
+  private final CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
   // private final Joystick costick = new Joystick(1);
   private final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
 
@@ -77,13 +77,13 @@ public class RobotContainer {
     joystick.rightBumper().whileTrue(new DownArm(sDoor));
 
     // ShootBtn = new JoystickButton(joystick.getHID(), 0);
-    // ShootBtn.whileTrue(new Shoot(sShooter));
+    //  ShootBtn.whileTrue(new Shoot(sShooter));
 
-    // IntakeBtn = new JoystickButton(joystick.getHID(), 1);
-    // IntakeBtn.whileTrue(new IntakeIn(sIntake));
+    //  IntakeBtn = new JoystickButton(joystick.getHID(), 1);
+    //  IntakeBtn.whileTrue(new IntakeIn(sIntake));
 
-    // IntakeOutBtn = new JoystickButton(joystick.getHID(), 2);
-    // IntakeOutBtn.whileTrue(new IntakeOut(sIntake));
+    //  IntakeOutBtn = new JoystickButton(joystick.getHID(), 2);
+    //  IntakeOutBtn.whileTrue(new IntakeOut(sIntake));
 
     // IntakeBtn = new JoystickButton(costick, XboxController.Button.kRightBumper.value);
     // IntakeBtn.whileTrue(new IntakeIn(sIntake));
