@@ -7,6 +7,7 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 
@@ -14,7 +15,11 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public TalonSRX Intake = new TalonSRX(Constants.kIntakeId);
 
-  public Intake() {}
+  public AnalogInput LightSensor = new AnalogInput(Constants.kLightSensorID);
+
+  public Intake() {
+    LightSensor.resetAccumulator();
+  }
 
   @Override
   public void periodic() {
@@ -31,5 +36,9 @@ public class Intake extends SubsystemBase {
 
   public void IntakeStop() {
     Intake.set(ControlMode.PercentOutput, 0);
+  }
+
+  public double getLightSensor() {
+    return LightSensor.getVoltage();
   }
 }

@@ -2,22 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Commands.Arm;
+package frc.robot.Commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Subsystems.Door;
+import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Intake;
 
-public class DownArm extends Command {
+public class ClimbExtend extends Command {
   /** Creates a new GrabClose. */
-  private Door door;
+  private Climber climber;
 
-  public DownArm(Door pDoor) {
+  public ClimbExtend(Climber pCLimber) {
 
-    door = pDoor;
+    climber = pCLimber;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(door);
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -28,13 +28,13 @@ public class DownArm extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    door.MoveDoor(-1);
+    climber.climbExtend();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    door.DoorStop();
+    climber.climbStop();
   }
 
   // Returns true when the command should end.

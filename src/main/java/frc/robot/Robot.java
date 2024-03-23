@@ -17,12 +17,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    m_robotContainer.getDrivetrain().ResetNavx();
+
+    
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
     SmartDashboard.putNumber("Door Enc", m_robotContainer.getDoor().getAngle());
+    SmartDashboard.putNumber("Light Sensor", m_robotContainer.getIntake().getLightSensor());
   }
 
   @Override

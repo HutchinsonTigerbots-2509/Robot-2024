@@ -28,7 +28,7 @@ public class UpArm extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    door.DoorOpen(.3);
+    door.MoveDoor(1);
   }
 
   // Called once the command ends or is interrupted.

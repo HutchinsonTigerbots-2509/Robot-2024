@@ -9,7 +9,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackTy
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.util.Units;
-import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
 
 public class Constants {
     // Both sets of gains need to be tuned to your individual robot.
@@ -125,12 +125,20 @@ public class Constants {
 
     // Arm
     public static final int kArmId = 16;
+    public static final int kTopLimitSwitchID = 2;
+    public static final int kBottomLimitSwitchID = 3;
 
     // Intake
     public static final int kIntakeId = 10;
+    public static final int kLightSensorID = 1;
 
     // Shooter
     public static final int kShooterId = 9;
+
+    // Climber
+
+    public static final int kClimbID = 11;
+    public static final int kCLimbSwitchID = 4;
 
 
     private static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
