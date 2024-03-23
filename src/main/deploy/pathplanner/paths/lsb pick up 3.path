@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.9418259121824937,
+        "y": 4.789732147224637
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.183174586035333,
+        "y": 6.569779302183426
+      },
+      "isLocked": false,
+      "linkedName": "lsb shot"
+    },
+    {
+      "anchor": {
+        "x": 7.865711885269925,
+        "y": 6.008968171782498
+      },
+      "prevControl": {
+        "x": 5.70558333698693,
+        "y": 6.885971888919526
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "lsb 3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -30.784146526326477,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Left Side Blue",
+  "previewStartingState": {
+    "rotation": -23.629377730656895,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.763603681053517,
+        "y": 5.949766514917646
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.015171185834525,
+        "y": 7.0850561101978125
+      },
+      "isLocked": false,
+      "linkedName": "RSR 3"
+    },
+    {
+      "anchor": {
+        "x": 13.727506370847264,
+        "y": 4.754599637587292
+      },
+      "prevControl": {
+        "x": 12.661820245181147,
+        "y": 6.581490138729208
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RSR shot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -165.96375653207355,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Right Side Red",
+  "previewStartingState": {
+    "rotation": -160.10456866523435,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonSRX Shooter = new TalonSRX(Constants.kShooterId);
+  static TalonSRX Shooter = new TalonSRX(Constants.kShooterId);
 
   public Shooter() {}
 
@@ -26,6 +26,11 @@ public class Shooter extends SubsystemBase {
     // Shooter.set(ControlMode.Velocity, Velocity);
     Shooter.set(ControlMode.PercentOutput,-1);
   }
+
+  public void ShootOut(double Velocity) {
+    Shooter.set(ControlMode.PercentOutput, 1);
+  }
+
 
   public void Stop() {
     Shooter.set(ControlMode.Velocity, 0);

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Subsystems.DriveSubsystem;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -17,7 +18,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    m_robotContainer.getDrivetrain().ResetNavx();
+    m_robotContainer.getDrivetrain().Pigeon2Reset();
 
     
   }
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
     SmartDashboard.putNumber("Door Enc", m_robotContainer.getDoor().getAngle());
-    SmartDashboard.putNumber("Light Sensor", m_robotContainer.getIntake().getLightSensor());
+    SmartDashboard.putBoolean("Light Sensor", m_robotContainer.getIntake().getLightSensor());
   }
 
   @Override
@@ -48,7 +49,13 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    // DriveSubsystem.drive.withVelocityX(DriveSubsystem.getX(false, 0)) // Drive forward with
+    //                                                                                        // negative Y (forward)
+    //         .withVelocityY(DriveSubsystem.getY(false, 0)) // Drive left with negative X (left)
+    //         .withRotationalRate(DriveSubsystem.getZ(false, 0));
+    CommandScheduler.getInstance().run();
+  }
 
   @Override
   public void autonomousExit() {}
@@ -61,7 +68,12 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // DriveSubsystem.drive.withVelocityX(DriveSubsystem.getX(false, 0)) // Drive forward with
+    //                                                                                        // negative Y (forward)
+    //         .withVelocityY(DriveSubsystem.getX(false, 0)) // Drive left with negative X (left)
+    //         .withRotationalRate(DriveSubsystem.getZ(false, 0));
+  }
 
   @Override
   public void teleopExit() {}

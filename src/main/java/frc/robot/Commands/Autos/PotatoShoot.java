@@ -15,6 +15,7 @@ import frc.robot.Commands.Shooter.Shoot;
 import frc.robot.Commands.Shooter.Stop;
 import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Door;
+import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
 
@@ -28,10 +29,10 @@ public class PotatoShoot extends InstantCommand {
   Shooter shooter;
   Door door;
   Intake intake;
-  RobotContainer drivetrain;
+  DriveSubsystem drivetrain;
   
   public PotatoShoot(
-    RobotContainer pDrivetrain,
+    DriveSubsystem pDrivetrain,
     Intake pIntake,
     Door pDoor,
     Shooter pShooter
@@ -43,10 +44,12 @@ public class PotatoShoot extends InstantCommand {
     shooter = pShooter;
 
     commandSequence = Commands.sequence(
-      new MainPos(shooter, door),
-      new Shoot(shooter).alongWith(
-        new WaitCommand(3).andThen(
-          new IntakeIn(intake))),
+      new MainPos(shooter, door).withTimeout(3),
+      new Shoot(shooter).withTimeout(2).andThen(
+        new IntakeIn(intake).alongWith(
+          new Shoot(shooter)
+        ).withTimeout(2)
+      ),
       new Stop(shooter)
     );
     // Use addRequirements() here to declare subsystem dependencies.

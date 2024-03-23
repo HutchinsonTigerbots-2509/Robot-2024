@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 
@@ -15,10 +17,12 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public TalonSRX Intake = new TalonSRX(Constants.kIntakeId);
 
-  public AnalogInput LightSensor = new AnalogInput(Constants.kLightSensorID);
+  public DigitalInput LightSensor = new DigitalInput(Constants.kLightSensorID);
+  
 
   public Intake() {
-    LightSensor.resetAccumulator();
+    // LightSensor.resetAccumulator();
+    SmartDashboard.putBoolean("Proximity Sensor", getLightSensor());
   }
 
   @Override
@@ -27,18 +31,31 @@ public class Intake extends SubsystemBase {
   }
 
   public void IntakeIn() {
-    Intake.set(ControlMode.PercentOutput, 1);
+    if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
+      Intake.set(ControlMode.PercentOutput, 1);
+    }
+    else if (LightSensor.get()) {
+    Intake.set(ControlMode.PercentOutput, 0);
+    } else if (!LightSensor.get()) {
+      Intake.set(ControlMode.PercentOutput, 1);
+    }
   }
 
   public void IntakeOut() {
+    if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
+      Intake.set(ControlMode.PercentOutput, -1);
+    } else if (LightSensor.get()) {
     Intake.set(ControlMode.PercentOutput, -1);
+    } else if (!LightSensor.get()) {
+      Intake.set(ControlMode.PercentOutput, -1);
+    }
   }
 
   public void IntakeStop() {
     Intake.set(ControlMode.PercentOutput, 0);
   }
 
-  public double getLightSensor() {
-    return LightSensor.getVoltage();
+  public boolean getLightSensor() {
+    return LightSensor.get();
   }
 }

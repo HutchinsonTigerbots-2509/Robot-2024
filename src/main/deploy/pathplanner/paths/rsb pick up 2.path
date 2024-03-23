@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.5905008158090483,
+        "y": 3.80602187737899
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.0472234410945274,
+        "y": 2.41243232843099
+      },
+      "isLocked": false,
+      "linkedName": "rsb shot"
+    },
+    {
+      "anchor": {
+        "x": 7.860377261410728,
+        "y": 2.1899264340611406
+      },
+      "prevControl": {
+        "x": 5.506499115708644,
+        "y": 1.065686125666116
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "rsb 2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 29.167613379577837,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Right Side Blue",
+  "previewStartingState": {
+    "rotation": -37.207921921781576,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
