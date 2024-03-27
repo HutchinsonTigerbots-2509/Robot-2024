@@ -15,14 +15,13 @@ import frc.robot.Constants.Constants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
+
   public TalonSRX Intake = new TalonSRX(Constants.kIntakeId);
 
   public DigitalInput LightSensor = new DigitalInput(Constants.kLightSensorID);
   
 
   public Intake() {
-    // LightSensor.resetAccumulator();
-    SmartDashboard.putBoolean("Proximity Sensor", getLightSensor());
   }
 
   @Override
@@ -30,6 +29,7 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /** Intakes rings into the robot unless light sensor is hit */
   public void IntakeIn() {
     if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
       Intake.set(ControlMode.PercentOutput, 1);
@@ -41,6 +41,7 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  /** Reverses intake in case of emergencies */
   public void IntakeOut() {
     if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
       Intake.set(ControlMode.PercentOutput, -1);
@@ -51,10 +52,12 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  /** Turns intake off */
   public void IntakeStop() {
     Intake.set(ControlMode.PercentOutput, 0);
   }
 
+  /** Grabs Boolean true if a ring is inside the robot */
   public boolean getLightSensor() {
     return LightSensor.get();
   }

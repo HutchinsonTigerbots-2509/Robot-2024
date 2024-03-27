@@ -19,15 +19,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     m_robotContainer.getDrivetrain().Pigeon2Reset();
-
-    
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
-    SmartDashboard.putNumber("Door Enc", m_robotContainer.getDoor().getAngle());
-    SmartDashboard.putBoolean("Light Sensor", m_robotContainer.getIntake().getLightSensor());
   }
 
   @Override
@@ -50,10 +46,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    // DriveSubsystem.drive.withVelocityX(DriveSubsystem.getX(false, 0)) // Drive forward with
-    //                                                                                        // negative Y (forward)
-    //         .withVelocityY(DriveSubsystem.getY(false, 0)) // Drive left with negative X (left)
-    //         .withRotationalRate(DriveSubsystem.getZ(false, 0));
     CommandScheduler.getInstance().run();
   }
 
@@ -69,10 +61,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // DriveSubsystem.drive.withVelocityX(DriveSubsystem.getX(false, 0)) // Drive forward with
-    //                                                                                        // negative Y (forward)
-    //         .withVelocityY(DriveSubsystem.getX(false, 0)) // Drive left with negative X (left)
-    //         .withRotationalRate(DriveSubsystem.getZ(false, 0));
   }
 
   @Override

@@ -66,7 +66,6 @@ public class Constants {
     private static final double kSteerFrictionVoltage = 0.25;
     private static final double kDriveFrictionVoltage = 0.25;
     
-    private static AHRS navx = new AHRS();
     
 
     private static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
@@ -127,6 +126,9 @@ public class Constants {
 
     private static final double kBackRightXPosInches = -8.625;
     private static final double kBackRightYPosInches = -8.625;
+
+    // Gyro
+    public static final int kPigeonID = 25;
 
     // Arm
     public static final int kArmId = 16;

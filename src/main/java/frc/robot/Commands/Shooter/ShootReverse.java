@@ -7,11 +7,11 @@ package frc.robot.Commands.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.Shooter;
 
-public class ShootOut extends CommandBase {
+public class ShootReverse extends CommandBase {
   /** Creates a new GrabClose. */
   private Shooter shooter;
 
-  public ShootOut(Shooter pShooter) {
+  public ShootReverse(Shooter pShooter) {
 
     shooter = pShooter;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,7 +25,7 @@ public class ShootOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.ShootOut(3000);
+    shooter.ShootReverse(3000);
   }
 
   // Called once the command ends or is interrupted.

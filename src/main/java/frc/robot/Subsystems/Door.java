@@ -19,10 +19,7 @@ import frc.robot.Constants.Constants;
 public class Door extends SubsystemBase {
   /** Creates a new Arm. */
   public TalonFX Door = new TalonFX(Constants.kArmId);
-  public DutyCycleEncoder natecoder = new DutyCycleEncoder(0);
-  public double desiredPos = 0;
-
-  
+  public DutyCycleEncoder DoorEncoder = new DutyCycleEncoder(0);
 
   public DigitalInput TopLimitSwitch = new DigitalInput(Constants.kTopLimitSwitchID);
   public DigitalInput BottomLimitSwitch = new DigitalInput(Constants.kBottomLimitSwitchID);
@@ -30,60 +27,30 @@ public class Door extends SubsystemBase {
   public Door() {
 
     
-    natecoder.setPositionOffset(88);
-    natecoder.reset();
-    // enc.setDistancePerRotation(1024);
+    DoorEncoder.setPositionOffset(88);
+    DoorEncoder.reset();
   }
 
   
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Top Limit Switch", !TopLimitSwitch.get());
-    SmartDashboard.putBoolean("Bottom Limit Switch", !BottomLimitSwitch.get());
-    SmartDashboard.putNumber("natecoder", getAngle());
     // This method will be called once per scheduler run
     if (!TopLimitSwitch.get()) {
-      natecoder.reset();
+      DoorEncoder.reset();
     }
-
-    // if (!BottomLimitSwitch.get()) {
-    //   natecoder.reset();
-    //   natecoder.setPositionOffset(122);
-    // }
   }
 
+  /** Moves the door up off from the ground */
   public void DoorOpen(double Speed) {
       Door.set(Speed);
-      SmartDashboard.putNumber("SpeedUp", Speed);
   }
 
+  /** Moves the door down onto the ground */
   public void DoorClose(double Speed) {
       Door.set(-Speed);
-      SmartDashboard.putNumber("SpeedDown", Speed);
   }
 
-  public void DoorPosUp() {
-    if (desiredPos < 200) {
-      desiredPos += .1;
-    }
-  }
-
-  // Command to move the shoulder forward function
-  public Command cmdDoorPosUp() {
-    return this.run(this::DoorPosUp);
-  }
-
-  public void DoorPosDown() {
-    if (desiredPos > -200) {
-      desiredPos -= .1;
-    }
-  }
-
-  // Command to move the shoulder backward function
-  public Command cmdDoorPosDOwn() {
-    return this.run(this::DoorPosDown);
-  }
-
+  /** Used to move the door up and down based on it hitting the top and bottom limit switches using the input speed*/
   public void MoveDoor(double Speed) {
     if (Speed > 0 && !TopLimitSwitch.get()){
       Door.set(0);
@@ -93,23 +60,28 @@ public class Door extends SubsystemBase {
     }
     else{
       Door.set(Speed);
-      SmartDashboard.putNumber("Speed", Speed);
     }
   }
 
+  /** Turns off the door */
   public void DoorStop() {
     Door.set(0);
   }
 
+  /** Returns the current position of the door as a double */
   public double getAngle(){
-    return natecoder.get()*360;
+    return DoorEncoder.get()*360;
+  }
+  
+  /** Returns the top limit switch as a boolean */
+  public Boolean getTopLimit() {
+    boolean top = !TopLimitSwitch.get();
+    return top;
   }
 
-  // public double getAngle2(){
-  //   return Door.getselectedsensor
-  // }
-
-  public double getDesiredPos() {
-    return desiredPos;
+  /** Returns the bottom limit switch as a boolean */
+  public Boolean getbottomLimit() {
+    boolean bottom = !BottomLimitSwitch.get();
+    return bottom;
   }
 }

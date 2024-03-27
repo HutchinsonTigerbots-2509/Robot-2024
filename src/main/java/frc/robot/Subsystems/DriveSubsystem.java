@@ -7,6 +7,10 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -24,6 +28,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.Kinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -52,8 +57,7 @@ public class DriveSubsystem extends SubsystemBase {
   public static double speedValue = MaxSpeed;
   private static double CreepSpeed = 0.8; // creep mode speed
   public static double MaxAngularRate = 2.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
-  private final static CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
-  public final static Pigeon2 Gyro = new Pigeon2(25);
+  public final static Pigeon2 Gyro = new Pigeon2(Constants.kPigeonID);
 
 
     TalonFX FrontLeftSteerMotor = new TalonFX(Constants.kFrontLeftSteerMotorId);    
@@ -65,22 +69,22 @@ public class DriveSubsystem extends SubsystemBase {
     TalonFX FrontRightDriveMotor = new TalonFX(Constants.kFrontRightDriveMotorId);    
     TalonFX BackLeftDriveMotor = new TalonFX(Constants.kBackLeftDriveMotorId);
     TalonFX BackRightDriveMotor = new TalonFX(Constants.kBackRightDriveMotorId);
+    Pose2d StartingPose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    
 
-    //SwerveDrivePoseEstimator SwerveEstie = new SwerveDrivePoseEstimator(PathPlannerReqConstants.swerveKinematics, getAngleRotation2d(), getStates(), null);
+      // <3 Our SwervePoseEstimator we saw an example of one using this.  We use this past start up to get our pose2d once it is set up.  Have yet to do that.
+      // <3 Everything below the line I made is used for the pathplanning system, or atleast was at some point.
+      // <3 - For Nate to read that I'm leaving rn
 
-
-  
-  // public static double controlmodeY = -joystick.getLeftY();
-  // public static double controlmodeX = -joystick.getLeftX();
-  
+    SwerveDrivePoseEstimator SwerveEstie = new SwerveDrivePoseEstimator(PathPlannerReqConstants.swerveKinematics, getAngleRotation2d(), getStates(), StartingPose);
 
 
   public void periodic() {
 
   }
-  
 
-    public void ToggleGear() { 
+  /** Switches our Speed for a creep and normal mode driving */
+  public void ToggleGear() { 
     if (speedValue == MaxSpeed) {
       speedValue = CreepSpeed;
       SmartDashboard.putBoolean("High Gear", false);
@@ -90,85 +94,14 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
-    public Command cmdToggleGear() {
+  /** The command to call the toggle gear function */
+  public Command cmdToggleGear() {
     return this.runOnce(this::ToggleGear);
   }
 
-  // public void InvertDrive() {
-  //   if (controlmodeY == -joystick.getLeftY() || controlmodeX == -joystick.getLeftX()) {
-  //     controlmodeY = joystick.getLeftY();
-  //     controlmodeX = joystick.getLeftX();
-  //     SmartDashboard.putBoolean("Drive Inverted", false);
-  //   } else if (controlmodeY == joystick.getLeftY() || controlmodeX == joystick.getLeftX()) {
-  //     controlmodeY = -joystick.getLeftY();
-  //     controlmodeX = -joystick.getLeftX();
-  //     SmartDashboard.putBoolean("Drive Inverted", true);
-  //   }
-  // }
-
-  // public Command cmdInvertDrive() {
-  //   return this.runOnce(this::InvertDrive);
-  // }
-
-
+  /** Resets our pigeon 2 gyro */
   public static void Pigeon2Reset() {
     Gyro.reset();
-  }
-
-    public static Rotation2d getAngleRotation2d() {
-
-    Rotation2d angle = Gyro.getRotation2d();
-    return angle;
-  }
-
-
-  // public void ResetPosition() {
-  //   SwerveEstie.resetPosition(getAngleRotation2d(), getStates(), null);
-  // }
-
-
-
-  public static SwerveModuleState getFrontLeftState() {
-    TalonFX DriveMotor = new TalonFX(Constants.kFrontLeftDriveMotorId);
-    TalonFX SteerMotor = new TalonFX(Constants.kFrontLeftSteerMotorId);
-    // Apply chassis angular offset to the encoder position to get the position
-    // relative to the chassis.
-    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
-        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
-  }
-
-    public static SwerveModuleState getFrontRightState() {
-    TalonFX DriveMotor = new TalonFX(Constants.kFrontRightDriveMotorId);
-    TalonFX SteerMotor = new TalonFX(Constants.kFrontRightSteerMotorId);
-    // Apply chassis angular offset to the encoder position to get the position
-    // relative to the chassis.
-    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
-        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
-  }
-
-    public static SwerveModuleState getBackLeftState() {
-    TalonFX DriveMotor = new TalonFX(Constants.kBackLeftDriveMotorId);
-    TalonFX SteerMotor = new TalonFX(Constants.kBackLeftSteerMotorId);
-    // Apply chassis angular offset to the encoder position to get the position
-    // relative to the chassis.
-    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
-        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
-  }
-
-    public static SwerveModuleState getBackRightState() {
-    TalonFX DriveMotor = new TalonFX(Constants.kBackRightDriveMotorId);
-    TalonFX SteerMotor = new TalonFX(Constants.kBackRightSteerMotorId);
-    // Apply chassis angular offset to the encoder position to get the position
-    // relative to the chassis.
-    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
-        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
-  }
-
-    public static ChassisSpeeds getRobotRelativeSpeeds(){
-    return PathPlannerReqConstants.swerveKinematics.toChassisSpeeds(getFrontLeftState(),
-                                                           getFrontRightState(),
-                                                           getBackLeftState(),
-                                                           getBackRightState());
   }
 
   public static double MPSToRPS(double wheelMPS, double circumference){
@@ -176,6 +109,159 @@ public class DriveSubsystem extends SubsystemBase {
     return wheelRPS;
 }
 
+
+//   public void setModuleStates(SwerveModuleState[] desiredStates) {
+//     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
+// }
+
+//   public void setModuleStatesB(SwerveModuleState desiredStates) {
+//     setDesiredState(desiredStates, false);
+// }
+
+    // public void driveRobotRelative(ChassisSpeeds speeds) {
+    //     SwerveModuleState[] states = PathPlannerReqConstants.swerveKinematics.toSwerveModuleStates(speeds);
+    //     SwerveDriveKinematics.desaturateWheelSpeeds(states, DriveSubsystem.MaxSpeed);
+    //     setModuleStates(states);
+    //     setDesiredState(states, false);
+    //   }
+
+
+  /** Returns the current angle of our robot using the pigeon 2 gyro */
+  public static double getAngleP() {
+    double angle = Gyro.getYaw().getValue();
+    SmartDashboard.putNumber("GyroP", angle);
+    angle = Math.toRadians(angle);
+    return angle;
+  }
+
+
+  /** Our swerve drive object we call to give our speeds */
+  public final static SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+    .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+    .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+                                                              ; // I want field-centric
+                                                               // driving in open loop
+
+  /** Converts the controller to the robots X-axis for driving with field oriented */
+  public static double swerveX(CommandXboxController Stick) {
+    double sX;
+    sX = -(Stick.getLeftX() * Math.cos(getAngleP()) - (Stick.getLeftY() * Math.sin(getAngleP())));
+    //sX = Stick.getLeftX();
+    return -sX;
+  }
+/** Converts the controller to the robots Y-axis for driving with field oriented */
+public static double swerveY(CommandXboxController Stick) {
+    double sY;
+    sY = (Stick.getLeftY() * Math.cos(getAngleP()) + (Stick.getLeftX() * Math.sin(getAngleP())));
+    //sY = Stick.getLeftY();
+    return sY;
+  }
+
+/** Converts the controller to the robots Z-axis for driving with field oriented */
+public static double swerveZ(CommandXboxController Stick) {
+    double sZ;
+    sZ = Stick.getRightX();
+    return sZ;
+  }
+
+
+  /*
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+===================================================================================================================================================
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  */
+
+
+  /** Gets the Rotation2d from the pigeon */
+  public static Rotation2d getAngleRotation2d() {
+    Rotation2d angle = Gyro.getRotation2d();
+    return angle;
+  }
+
+  /** Gets the current Translation2d of the robot */
+  public static Translation2d getTranslation2d() {
+    //TODO make this our current number not 0,0
+    Translation2d trans = Translation2d(0,0);
+    return trans;
+  }
+
+  /** Gets our Pose2d by using our Translation2d and our Pose2d*/
+  public static Pose2d getPose2d() {
+    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    return pose;
+  }
+
+  /** Our Supplier for our current Pose2d of our robot in auto */
+  public static Supplier<Pose2d> getPose2dSupplied() {
+    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    Supplier<Pose2d> SuppliedPos = (Supplier<Pose2d>) pose;
+    return SuppliedPos;
+  }
+
+  /** Resets our current Pose2d */
+  public static Consumer<Pose2d> getPose2dConsumer() {
+    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    Consumer<Pose2d> ConsumedPos = (Consumer<Pose2d>) pose;
+    return ConsumedPos;
+  }
+
+  /** Turns a given x and y into a Translation2d */
+  private static Translation2d Translation2d(int x, int y) {
+    Translation2d trans = new Translation2d(x, y);
+    return trans;
+  }
+
+  /** Resets the current Pose2d of the robot */
+  public void ResetPosition() {
+     SwerveEstie.resetPosition(getAngleRotation2d(), getStates(), getPose2d());
+   }
+
+  /** Drives the robot by converting ChassisSpeeds back to just our field oriented X,Y,Z cords */
+  public static void DriveChassie() {
+    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
+  }
+
+  /** Sets our swerveModules to the desired states given to the function */
+  private void setModuleStates(SwerveModuleState[] desiredStates) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
+      SwerveModuleState FrontLeftState = desiredStates[0];
+      SwerveModuleState FrontRightState = desiredStates[1];
+      SwerveModuleState RearLeftState = desiredStates[2];
+      SwerveModuleState RearRightState = desiredStates[3];
+  
+      Constants.DriveTrain.getModule(0).apply(FrontLeftState, DriveRequestType.OpenLoopVoltage);
+      Constants.DriveTrain.getModule(1).apply(FrontRightState, DriveRequestType.OpenLoopVoltage);
+      Constants.DriveTrain.getModule(2).apply(RearLeftState, DriveRequestType.OpenLoopVoltage);
+      Constants.DriveTrain.getModule(3).apply(RearRightState, DriveRequestType.OpenLoopVoltage);
+    }
+
+
+  /** Gets the current swerveModule States */
+  public SwerveModulePosition[] getStates() {
+
+    SwerveModulePosition frontLeft = new SwerveModulePosition();
+    SwerveModulePosition frontRight = new SwerveModulePosition();
+    SwerveModulePosition rearLeft = new SwerveModulePosition();
+    SwerveModulePosition rearRight = new SwerveModulePosition();
+
+    //TODO get it so that this returns our actual swerveModuleStates
+
+    // SwerveModulePosition frontLeft = new SwerveModulePosition((Measure<Distance>) FrontLeftDriveMotor.getPosition(), getAngleRotation2d());
+    // SwerveModulePosition frontRight = new SwerveModulePosition((Measure<Distance>) FrontRightDriveMotor.getPosition(), getAngleRotation2d());
+    // SwerveModulePosition rearLeft = new SwerveModulePosition((Measure<Distance>) BackLeftDriveMotor.getPosition(), getAngleRotation2d());
+    // SwerveModulePosition rearRight = new SwerveModulePosition((Measure<Distance>) BackRightDriveMotor.getPosition(), getAngleRotation2d());
+    
+    SwerveModulePosition[] states = new SwerveModulePosition[] {
+      frontLeft,
+      frontRight,
+      rearLeft,
+      rearRight
+    };
+    return states;
+  }
+
+  //** Sets our speed based on our desiredState in our SwerveModule */
   private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
     final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     final VelocityVoltage driveVelocity = new VelocityVoltage(0);
@@ -198,9 +284,9 @@ public class DriveSubsystem extends SubsystemBase {
         BackLeftDriveMotor.setControl(driveVelocity);
         BackRightDriveMotor.setControl(driveVelocity);
     }
-}
+  }
 
-
+  /** Sets the desired state of the SwerveModule*/
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
     
     final PositionVoltage anglePosition = new PositionVoltage(0);
@@ -214,147 +300,68 @@ public class DriveSubsystem extends SubsystemBase {
     BackRightSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
 
     setSpeed(desiredState, isOpenLoop);
-}
-
-  // public SwerveModulePosition[] getStates() {
-
-  //   SwerveModulePosition frontLeft = new SwerveModulePosition();
-  //   SwerveModulePosition frontRight = new SwerveModulePosition();
-  //   SwerveModulePosition rearLeft = new SwerveModulePosition();
-  //   SwerveModulePosition rearRight = new SwerveModulePosition();
-    
-  //   SwerveModulePosition[] states = new SwerveModulePosition[] {
-  //     frontLeft,
-  //     frontRight,
-  //     rearLeft,
-  //     rearRight
-  //   };
-  //   return states;
-  // }
-
-//   public void setModuleStates(SwerveModuleState[] desiredStates) {
-//     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
-// }
-
-//   public void setModuleStatesB(SwerveModuleState desiredStates) {
-//     setDesiredState(desiredStates, false);
-// }
-
-    // public void driveRobotRelative(ChassisSpeeds speeds) {
-    //     SwerveModuleState[] states = PathPlannerReqConstants.swerveKinematics.toSwerveModuleStates(speeds);
-    //     SwerveDriveKinematics.desaturateWheelSpeeds(states, DriveSubsystem.MaxSpeed);
-    //     setModuleStates(states);
-    //     setDesiredState(states, false);
-    //   }
-
-
-    // private void setModuleStates(SwerveModuleState[] desiredStates) {
-    //   SwerveDriveKinematics.desaturateWheelSpeeds(
-    //       desiredStates, MaxSpeed);
-    //     SwerveModuleState FrontLeftState = desiredStates[0];
-    //     SwerveModuleState FrontRightState = desiredStates[1];
-    //     SwerveModuleState RearLeftState = desiredStates[2];
-    //     SwerveModuleState RearRightState = desiredStates[3];
-  
-    //   Constants.DriveTrain.getModule(0).apply(FrontLeftState, DriveRequestType.OpenLoopVoltage);
-    //   Constants.DriveTrain.getModule(1).apply(FrontRightState, DriveRequestType.OpenLoopVoltage);
-    //   Constants.DriveTrain.getModule(2).apply(RearLeftState, DriveRequestType.OpenLoopVoltage);
-    //   Constants.DriveTrain.getModule(3).apply(RearRightState, DriveRequestType.OpenLoopVoltage);
-
-
-
-    // }
-
-    // private void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
-    //   ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
-  
-    //   SwerveModuleState[] targetStates = PathPlannerReqConstants.swerveKinematics.toSwerveModuleStates(targetSpeeds);
-    //   setModuleStates(targetStates);
-    // }
-
-
-    
-
-  /**
-   * Returns the current heading of the robot.
-   *
-   * @return value from 0 to 180 degrees.
-   */
-  public static double getAngleP() {
-    double angle = Gyro.getYaw().getValue();
-    SmartDashboard.putNumber("GyroP", angle);
-    angle = Math.toRadians(angle);
-    return angle;
   }
 
-  // public static void DriveChassie() {
-    
-  //   ChassisSpeeds speeds = getRobotRelativeSpeeds();
-  //   drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
-  // }
-
-   public final static SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-      .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
-      .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-                                                              ; // I want field-centric
-                                                               // driving in open loop
-
-                                                               
-  public static double swerveX(CommandXboxController Stick) {
-    double sX;
-    sX = -(Stick.getLeftX() * Math.cos(getAngleP()) - (Stick.getLeftY() * Math.sin(getAngleP())));
-    //sX = Stick.getLeftX();
-    return -sX;
+  /** Converts the states of the different modules of the robot into a ChassisSpeed */
+  public static ChassisSpeeds getRobotRelativeSpeeds(){
+      return PathPlannerReqConstants.swerveKinematics.toChassisSpeeds(getFrontLeftState(),
+                                                           getFrontRightState(),
+                                                           getBackLeftState(),
+                                                           getBackRightState());
   }
 
-public static double swerveY(CommandXboxController Stick) {
-    double sY;
-    sY = (Stick.getLeftY() * Math.cos(getAngleP()) + (Stick.getLeftX() * Math.sin(getAngleP())));
-    //sY = Stick.getLeftY();
-    return sY;
+  /** Gets robots Speed*/
+  public static Supplier<ChassisSpeeds> getChassisSpeedsSupplier() {
+    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    Supplier<ChassisSpeeds> SuppliedSpeeds = (Supplier<ChassisSpeeds>) speeds;
+    return SuppliedSpeeds;
   }
 
-public static double swerveZ(CommandXboxController Stick) {
-    double sZ;
-    sZ = Stick.getRightX();
-    return sZ;
+  /** Sets the speed of the robot */
+  public static Consumer<ChassisSpeeds> getChassisSpeedsConsumer() {
+    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    Consumer<ChassisSpeeds> ConsumedSpeeds = (Consumer<ChassisSpeeds>) speeds;
+    return ConsumedSpeeds;
   }
 
+  /** Gets the SwerveModuleState of the FrontLeftModule in our swerve drive */
+  public static SwerveModuleState getFrontLeftState() {
+    TalonFX DriveMotor = new TalonFX(Constants.kFrontLeftDriveMotorId);
+    TalonFX SteerMotor = new TalonFX(Constants.kFrontLeftSteerMotorId);
+    // Apply chassis angular offset to the encoder position to get the position
+    // relative to the chassis.
+    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
+        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
 
-public static CommandXboxController getJoystick() {
-  return joystick;
-}
+  /** Gets the SwerveModuleState of the FrontRightModule in our swerve drive */
+  public static SwerveModuleState getFrontRightState() {
+    TalonFX DriveMotor = new TalonFX(Constants.kFrontRightDriveMotorId);
+    TalonFX SteerMotor = new TalonFX(Constants.kFrontRightSteerMotorId);
+    // Apply chassis angular offset to the encoder position to get the position
+    // relative to the chassis.
+    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
+        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
 
+  /** Gets the SwerveModuleState of the RearLeftModule in our swerve drive */
+  public static SwerveModuleState getBackLeftState() {
+    TalonFX DriveMotor = new TalonFX(Constants.kBackLeftDriveMotorId);
+    TalonFX SteerMotor = new TalonFX(Constants.kBackLeftSteerMotorId);
+    // Apply chassis angular offset to the encoder position to get the position
+    // relative to the chassis.
+    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
+        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
 
+  /** Gets the SwerveModuleState of the RearRightModule in our swerve drive */
+  public static SwerveModuleState getBackRightState() {
+    TalonFX DriveMotor = new TalonFX(Constants.kBackRightDriveMotorId);
+    TalonFX SteerMotor = new TalonFX(Constants.kBackRightSteerMotorId);
+    // Apply chassis angular offset to the encoder position to get the position
+    // relative to the chassis.
+    return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
+        new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
 
-  // public DriveSubsystem() {
-
-
-  //   // Configure AutoBuilder last
-  //   AutoBuilder.configureHolonomic(
-  //           this::getPose, // Robot pose supplier
-  //           this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-  //           this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-  //           this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-  //           new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-  //                   new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-  //                   new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-  //                   4.5, // Max module speed, in m/s
-  //                   0.4, // Drive base radius in meters. Distance from robot center to furthest module.
-  //                   new ReplanningConfig() // Default path replanning config. See the API for the options here
-  //           ),
-  //           () -> {
-  //             // Boolean supplier that controls when the path will be mirrored for the red alliance
-  //             // This will flip the path being followed to the red side of the field.
-  //             // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-  //             var alliance = DriverStation.getAlliance();
-  //             if (alliance.isPresent()) {
-  //               return alliance.get() == DriverStation.Alliance.Red;
-  //             }
-  //             return false;
-  //           },
-  //           this // Reference to this subsystem to set requirements
-  //   );
-  // }
 }
