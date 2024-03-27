@@ -31,10 +31,10 @@ public class PathPlannerDrive extends SubsystemBase {
 
     // <3 There are set up to be allowed by the system, but don't work correctly
     
-            DriveSubsystem.getPose2dSupplied(),
-            DriveSubsystem.getPose2dConsumer(),
-            DriveSubsystem.getChassisSpeedsSupplier(),
-            DriveSubsystem.getChassisSpeedsConsumer(),
+            DriveSubsystem.getPose2dSupplied(), //Pose supplier
+            DriveSubsystem.getPose2dConsumer(), // Method to reset odmetry
+            DriveSubsystem.getChassisSpeedsSupplier(), // ChassisSpeeds
+            DriveSubsystem.getChassisSpeedsConsumer(), // Method that will drive robot with chassis
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                     new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
                     new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants

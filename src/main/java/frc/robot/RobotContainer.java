@@ -4,15 +4,21 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.fasterxml.jackson.databind.deser.impl.NullsAsEmptyProvider;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -55,6 +61,7 @@ import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Door;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.PathPlannerDrive;
 import frc.robot.Subsystems.Shooter;
 
 public class RobotContainer extends SubsystemBase{
@@ -74,6 +81,8 @@ public class RobotContainer extends SubsystemBase{
 
   // Autochooser
     SendableChooser<Command> AutoSelect = new SendableChooser<>();
+    SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
+    List<Pair<String,Command>> Commands;
 
   // Autos
 
@@ -175,13 +184,39 @@ public class RobotContainer extends SubsystemBase{
             .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-    AutoSelect.addOption("Test Drive", new TestDrive(sDrivetrain, sIntake, sDoor, sShooter));
+    // Named Commands
 
-    AutoSelect.addOption("Drive Forward", new DriveForward(sDrivetrain, sIntake, sDoor, sShooter));
+    Commands.clear();
+    Commands.add(Pair.of("Shoot", new Shoot(sShooter)));
+    Commands.add(Pair.of("ShootReverse", new ShootReverse(sShooter)));
+    Commands.add(Pair.of("IntakeIn", new IntakeIn(sIntake)));
+    Commands.add(Pair.of("IntakeOut", new IntakeOut(sIntake)));
+    Commands.add(Pair.of("MainPos", new MainPos(sShooter, sDoor)));
+    Commands.add(Pair.of("SafePos", new SafePos(sShooter, sDoor)));
+    Commands.add(Pair.of("ShootFarPos", new ShootFarPos(sShooter, sDoor)));
 
-    AutoSelect.addOption("Potato", new Potato(sDrivetrain, sIntake, sDoor, sShooter));
+    NamedCommands.registerCommands(Commands);
 
-    AutoSelect.addOption("Potato & Shoot", new PotatoShoot(sDrivetrain, sIntake, sDoor, sShooter));
+    // AutoSelect.addOption("Test Drive", new TestDrive(sDrivetrain, sIntake, sDoor, sShooter));
+
+    // AutoSelect.addOption("Drive Forward", new DriveForward(sDrivetrain, sIntake, sDoor, sShooter));
+
+    // AutoSelect.addOption("Potato", new Potato(sDrivetrain, sIntake, sDoor, sShooter));
+
+    // AutoSelect.addOption("Potato & Shoot", new PotatoShoot(sDrivetrain, sIntake, sDoor, sShooter));
+
+    AutoSelectPath.setDefaultOption("Right Side Blue", PathPlannerPath.fromPathFile("Right Side Blue"));
+
+    AutoSelectPath.addOption("Left Side Blue", PathPlannerPath.fromPathFile("Left Side Blue"));
+
+    AutoSelectPath.addOption("Middle Blue", PathPlannerPath.fromPathFile("Middle Blue"));
+    
+    AutoSelectPath.addOption("Right Side Red", PathPlannerPath.fromPathFile("Right Side Red"));
+
+    AutoSelectPath.addOption("Left Side Red", PathPlannerPath.fromPathFile("Left Side Red"));
+
+    AutoSelectPath.addOption("Middle Red", PathPlannerPath.fromPathFile("Middle Red"));
+
 
     SmartDashboard.putData(AutoSelect);
 
@@ -189,7 +224,8 @@ public class RobotContainer extends SubsystemBase{
   }
 
   public Command getAutonomousCommand() {
-    return AutoSelect.getSelected();
+    PathPlannerPath path = AutoSelectPath.getSelected();
+    return AutoBuilder.followPath(path);
   }
 
   public Door getDoor()
