@@ -4,13 +4,9 @@
 
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,23 +15,20 @@ import frc.robot.Constants.Constants;
 public class Door extends SubsystemBase {
   /** Creates a new Arm. */
   public TalonFX Door = new TalonFX(Constants.kArmId);
+
   public DutyCycleEncoder natecoder = new DutyCycleEncoder(0);
   public double desiredPos = 0;
-
-  
 
   public DigitalInput TopLimitSwitch = new DigitalInput(Constants.kTopLimitSwitchID);
   public DigitalInput BottomLimitSwitch = new DigitalInput(Constants.kBottomLimitSwitchID);
 
   public Door() {
 
-    
     natecoder.setPositionOffset(88);
     natecoder.reset();
     // enc.setDistancePerRotation(1024);
   }
 
-  
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Top Limit Switch", !TopLimitSwitch.get());
@@ -53,13 +46,13 @@ public class Door extends SubsystemBase {
   }
 
   public void DoorOpen(double Speed) {
-      Door.set(Speed);
-      SmartDashboard.putNumber("SpeedUp", Speed);
+    Door.set(Speed);
+    SmartDashboard.putNumber("SpeedUp", Speed);
   }
 
   public void DoorClose(double Speed) {
-      Door.set(-Speed);
-      SmartDashboard.putNumber("SpeedDown", Speed);
+    Door.set(-Speed);
+    SmartDashboard.putNumber("SpeedDown", Speed);
   }
 
   public void DoorPosUp() {
@@ -85,13 +78,11 @@ public class Door extends SubsystemBase {
   }
 
   public void MoveDoor(double Speed) {
-    if (Speed > 0 && !TopLimitSwitch.get()){
+    if (Speed > 0 && !TopLimitSwitch.get()) {
       Door.set(0);
-    }
-    else if (Speed < 0 && !BottomLimitSwitch.get()) {
+    } else if (Speed < 0 && !BottomLimitSwitch.get()) {
       Door.set(0);
-    }
-    else{
+    } else {
       Door.set(Speed);
       SmartDashboard.putNumber("Speed", Speed);
     }
@@ -101,8 +92,8 @@ public class Door extends SubsystemBase {
     Door.set(0);
   }
 
-  public double getAngle(){
-    return natecoder.get()*360;
+  public double getAngle() {
+    return natecoder.get() * 360;
   }
 
   // public double getAngle2(){
@@ -111,5 +102,21 @@ public class Door extends SubsystemBase {
 
   public double getDesiredPos() {
     return desiredPos;
+  }
+
+  public Command cmdDown() {
+    return this.runEnd(
+        () -> {
+          this.MoveDoor(-1);
+        },
+        this::DoorStop);
+  }
+
+  public Command cmdUp() {
+    return this.runEnd(
+        () -> {
+          this.MoveDoor(1);
+        },
+        this::DoorStop);
   }
 }

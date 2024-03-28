@@ -15,6 +15,7 @@ public class TeleDoorController extends PIDCommand {
   static final double kP = 0.02;
   static final double kI = 0.001;
   static final double kD = 0.00;
+
   /** Creates a new Shoulder. */
   public TeleDoorController(double PreferredAngle, Door door) {
     super(

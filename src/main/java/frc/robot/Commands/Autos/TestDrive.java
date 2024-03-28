@@ -7,14 +7,7 @@ package frc.robot.Commands.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.RobotContainer;
 import frc.robot.Commands.Drivetrain.DriveToPosition;
-import frc.robot.Commands.Intake.IntakeIn;
-import frc.robot.Commands.PresetPos.MainPos;
-import frc.robot.Commands.Shooter.Shoot;
-import frc.robot.Commands.Shooter.Stop;
-import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Door;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.Intake;
@@ -31,21 +24,16 @@ public class TestDrive extends InstantCommand {
   Door door;
   Intake intake;
   DriveSubsystem drivetrain;
-  
-  public TestDrive(
-    DriveSubsystem pDrivetrain,
-    Intake pIntake,
-    Door pDoor,
-    Shooter pShooter) {
+
+  public TestDrive(DriveSubsystem pDrivetrain, Intake pIntake, Door pDoor, Shooter pShooter) {
 
     drivetrain = pDrivetrain;
     intake = pIntake;
     door = pDoor;
     shooter = pShooter;
 
-    commandSequence = Commands.sequence(
-      new DriveToPosition(drivetrain, shooter, 1, 0, 0).withTimeout(5)
-    );
+    commandSequence =
+        Commands.sequence(new DriveToPosition(drivetrain, shooter, 1, 0, 0).withTimeout(5));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
   }

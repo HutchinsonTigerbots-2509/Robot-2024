@@ -10,11 +10,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 /** Add your docs here. */
 public class PathPlannerReqConstants {
 
-
-             public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-            new Translation2d(0.3048, 0.3048),
-            new Translation2d(0.3048, -0.3048),
-            new Translation2d(-0.3048, 0.3048),
-            new Translation2d(-0.3048, -0.3048));
-
+  public static final SwerveDriveKinematics swerveKinematics =
+      new SwerveDriveKinematics(
+          new Translation2d(0.3048, 0.3048),
+          new Translation2d(0.3048, -0.3048),
+          new Translation2d(-0.3048, 0.3048),
+          new Translation2d(-0.3048, -0.3048));
 }

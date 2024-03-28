@@ -7,9 +7,7 @@ package frc.robot.Commands.Autos;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.RobotContainer;
 import frc.robot.Commands.PresetPos.MainPos;
-import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Door;
 import frc.robot.Subsystems.DriveSubsystem;
 import frc.robot.Subsystems.Intake;
@@ -26,22 +24,15 @@ public class Potato extends InstantCommand {
   Door door;
   Intake intake;
   DriveSubsystem drivetrain;
-  
-  public Potato(
-    DriveSubsystem pDrivetrain,
-    Intake pIntake,
-    Door pDoor,
-    Shooter pShooter
-  ) {
+
+  public Potato(DriveSubsystem pDrivetrain, Intake pIntake, Door pDoor, Shooter pShooter) {
 
     drivetrain = pDrivetrain;
     intake = pIntake;
     door = pDoor;
     shooter = pShooter;
 
-    commandSequence = Commands.sequence(
-      new MainPos(shooter, door)
-    );
+    commandSequence = Commands.sequence(new MainPos(shooter, door));
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

@@ -6,10 +6,9 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 
@@ -18,7 +17,6 @@ public class Intake extends SubsystemBase {
   public TalonSRX Intake = new TalonSRX(Constants.kIntakeId);
 
   public DigitalInput LightSensor = new DigitalInput(Constants.kLightSensorID);
-  
 
   public Intake() {
     // LightSensor.resetAccumulator();
@@ -33,9 +31,8 @@ public class Intake extends SubsystemBase {
   public void IntakeIn() {
     if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
       Intake.set(ControlMode.PercentOutput, 1);
-    }
-    else if (LightSensor.get()) {
-    Intake.set(ControlMode.PercentOutput, 0);
+    } else if (LightSensor.get()) {
+      Intake.set(ControlMode.PercentOutput, 0);
     } else if (!LightSensor.get()) {
       Intake.set(ControlMode.PercentOutput, 1);
     }
@@ -45,7 +42,7 @@ public class Intake extends SubsystemBase {
     if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
       Intake.set(ControlMode.PercentOutput, -1);
     } else if (LightSensor.get()) {
-    Intake.set(ControlMode.PercentOutput, -1);
+      Intake.set(ControlMode.PercentOutput, -1);
     } else if (!LightSensor.get()) {
       Intake.set(ControlMode.PercentOutput, -1);
     }
@@ -57,5 +54,13 @@ public class Intake extends SubsystemBase {
 
   public boolean getLightSensor() {
     return LightSensor.get();
+  }
+
+  public Command cmdIn() {
+    return this.runEnd(this::IntakeIn, this::IntakeStop);
+  }
+
+  public Command cmdOut() {
+    return this.runEnd(this::IntakeOut, this::IntakeStop);
   }
 }
