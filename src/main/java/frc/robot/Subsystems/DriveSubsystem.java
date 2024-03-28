@@ -224,6 +224,7 @@ public static double swerveZ(CommandXboxController Stick) {
 
   /** Sets our swerveModules to the desired states given to the function */
   private void setModuleStates(SwerveModuleState[] desiredStates) {
+    //TODO apply the given states
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
       SwerveModuleState FrontLeftState = desiredStates[0];
       SwerveModuleState FrontRightState = desiredStates[1];
@@ -240,17 +241,10 @@ public static double swerveZ(CommandXboxController Stick) {
   /** Gets the current swerveModule States */
   public SwerveModulePosition[] getStates() {
 
-    SwerveModulePosition frontLeft = new SwerveModulePosition();
-    SwerveModulePosition frontRight = new SwerveModulePosition();
-    SwerveModulePosition rearLeft = new SwerveModulePosition();
-    SwerveModulePosition rearRight = new SwerveModulePosition();
-
-    //TODO get it so that this returns our actual swerveModuleStates
-
-    // SwerveModulePosition frontLeft = new SwerveModulePosition((Measure<Distance>) FrontLeftDriveMotor.getPosition(), getAngleRotation2d());
-    // SwerveModulePosition frontRight = new SwerveModulePosition((Measure<Distance>) FrontRightDriveMotor.getPosition(), getAngleRotation2d());
-    // SwerveModulePosition rearLeft = new SwerveModulePosition((Measure<Distance>) BackLeftDriveMotor.getPosition(), getAngleRotation2d());
-    // SwerveModulePosition rearRight = new SwerveModulePosition((Measure<Distance>) BackRightDriveMotor.getPosition(), getAngleRotation2d());
+    SwerveModulePosition frontLeft = new SwerveModulePosition(FrontLeftDriveMotor.getPosition().getValue(), getAngleRotation2d());
+    SwerveModulePosition frontRight = new SwerveModulePosition(FrontRightDriveMotor.getPosition().getValue(), getAngleRotation2d());
+    SwerveModulePosition rearLeft = new SwerveModulePosition(BackLeftDriveMotor.getPosition().getValue(), getAngleRotation2d());
+    SwerveModulePosition rearRight = new SwerveModulePosition(BackRightDriveMotor.getPosition().getValue(), getAngleRotation2d());
     
     SwerveModulePosition[] states = new SwerveModulePosition[] {
       frontLeft,
