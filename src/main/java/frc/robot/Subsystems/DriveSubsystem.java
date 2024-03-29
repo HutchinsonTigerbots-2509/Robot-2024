@@ -173,37 +173,37 @@ public static double swerveZ(CommandXboxController Stick) {
 
 
   /** Gets the Rotation2d from the pigeon */
-  public static Rotation2d getAngleRotation2d() {
+  public Rotation2d getAngleRotation2d() {
     Rotation2d angle = Gyro.getRotation2d();
     return angle;
   }
 
   /** Gets the current Translation2d of the robot */
-  public static Translation2d getTranslation2d() {
+  public Translation2d getTranslation2d() {
     //TODO make this our current number not 0,0
     Translation2d trans = Translation2d(0,0);
     return trans;
   }
 
   /** Gets our Pose2d by using our Translation2d and our Pose2d*/
-  public static Pose2d getPose2d() {
+  public Pose2d getPose2d() {
     Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
     return pose;
   }
 
-  /** Our Supplier for our current Pose2d of our robot in auto */
-  public static Supplier<Pose2d> getPose2dSupplied() {
-    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
-    Supplier<Pose2d> SuppliedPos = (Supplier<Pose2d>) pose;
-    return SuppliedPos;
-  }
+  // /** Our Supplier for our current Pose2d of our robot in auto */
+  // public static Supplier<Pose2d> getPose2dSupplied() {
+  //   Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+  //   Supplier<Pose2d> SuppliedPos = (Supplier<Pose2d>) pose;
+  //   return SuppliedPos;
+  // }
 
-  /** Resets our current Pose2d */
-  public static Consumer<Pose2d> getPose2dConsumer() {
-    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
-    Consumer<Pose2d> ConsumedPos = (Consumer<Pose2d>) pose;
-    return ConsumedPos;
-  }
+  // /** Resets our current Pose2d */
+  // public static Consumer<Pose2d> getPose2dConsumer() {
+  //   Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+  //   Consumer<Pose2d> ConsumedPos = (Consumer<Pose2d>) pose;
+  //   return ConsumedPos;
+  // }
 
   /** Turns a given x and y into a Translation2d */
   private static Translation2d Translation2d(int x, int y) {
@@ -212,13 +212,13 @@ public static double swerveZ(CommandXboxController Stick) {
   }
 
   /** Resets the current Pose2d of the robot */
-  public void ResetPosition() {
-     SwerveEstie.resetPosition(getAngleRotation2d(), getStates(), getPose2d());
+  public void ResetPosition(Pose2d pos) {
+     SwerveEstie.resetPosition(getAngleRotation2d(), getStates(), pos);
    }
 
   /** Drives the robot by converting ChassisSpeeds back to just our field oriented X,Y,Z cords */
-  public static void DriveChassie() {
-    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+  public void DriveChassie(ChassisSpeeds speeds) {
+    //ChassisSpeeds speeds = getRobotRelativeSpeeds();
     drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
   }
 
@@ -297,26 +297,26 @@ public static double swerveZ(CommandXboxController Stick) {
   }
 
   /** Converts the states of the different modules of the robot into a ChassisSpeed */
-  public static ChassisSpeeds getRobotRelativeSpeeds(){
+  public ChassisSpeeds getRobotRelativeSpeeds(){
       return PathPlannerReqConstants.swerveKinematics.toChassisSpeeds(getFrontLeftState(),
                                                            getFrontRightState(),
                                                            getBackLeftState(),
                                                            getBackRightState());
   }
 
-  /** Gets robots Speed*/
-  public static Supplier<ChassisSpeeds> getChassisSpeedsSupplier() {
-    ChassisSpeeds speeds = getRobotRelativeSpeeds();
-    Supplier<ChassisSpeeds> SuppliedSpeeds = (Supplier<ChassisSpeeds>) speeds;
-    return SuppliedSpeeds;
-  }
+  // /** Gets robots Speed*/
+  // public static Supplier<ChassisSpeeds> getChassisSpeedsSupplier() {
+  //   ChassisSpeeds speeds = getRobotRelativeSpeeds();
+  //   Supplier<ChassisSpeeds> SuppliedSpeeds = (Supplier<ChassisSpeeds>) speeds;
+  //   return SuppliedSpeeds;
+  // }
 
-  /** Sets the speed of the robot */
-  public static Consumer<ChassisSpeeds> getChassisSpeedsConsumer() {
-    ChassisSpeeds speeds = getRobotRelativeSpeeds();
-    Consumer<ChassisSpeeds> ConsumedSpeeds = (Consumer<ChassisSpeeds>) speeds;
-    return ConsumedSpeeds;
-  }
+  // /** Sets the speed of the robot */
+  // public static Consumer<ChassisSpeeds> getChassisSpeedsConsumer() {
+  //   ChassisSpeeds speeds = getRobotRelativeSpeeds();
+  //   Consumer<ChassisSpeeds> ConsumedSpeeds = (Consumer<ChassisSpeeds>) speeds;
+  //   return ConsumedSpeeds;
+  // }
 
   /** Gets the SwerveModuleState of the FrontLeftModule in our swerve drive */
   public static SwerveModuleState getFrontLeftState() {

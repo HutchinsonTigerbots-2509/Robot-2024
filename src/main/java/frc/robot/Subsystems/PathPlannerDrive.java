@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /** Add your docs here. */
 public class PathPlannerDrive extends SubsystemBase {
 
-  public PathPlannerDrive() {
+  public PathPlannerDrive(DriveSubsystem drive) {
     // All other subsystem initialization
     // ...
 
@@ -24,17 +24,11 @@ public class PathPlannerDrive extends SubsystemBase {
 
     // <3 These are set up to do the correct things but is set up as Functions
     
-            //DriveSubsystem.getPose2d(),  // Robot pose supplier
-            //DriveSubsystem.ResetPosition(), // Method to reset odometry (will be called if your auto has a starting pose)
-            //DriveSubsystem.getRobotRelativeSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            //DriveSubsystem.DriveChassie(), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            drive::getPose2d,  // Robot pose supplier
+            resetPose -> drive.ResetPosition(resetPose), // Method to reset odmetry
+            drive::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            robotRelativeOutput -> drive.DriveChassie(robotRelativeOutput), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
 
-    // <3 There are set up to be allowed by the system, but don't work correctly
-    
-            DriveSubsystem.getPose2dSupplied(), //Pose supplier
-            DriveSubsystem.getPose2dConsumer(), // Method to reset odmetry
-            DriveSubsystem.getChassisSpeedsSupplier(), // ChassisSpeeds
-            DriveSubsystem.getChassisSpeedsConsumer(), // Method that will drive robot with chassis
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                     new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
                     new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
@@ -53,7 +47,7 @@ public class PathPlannerDrive extends SubsystemBase {
               }
               return false;
             },
-            this // Reference to this subsystem to set requirements
+            drive // Reference to this subsystem to set requirements
     );
   }
 }
