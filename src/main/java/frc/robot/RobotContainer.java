@@ -186,16 +186,13 @@ public class RobotContainer extends SubsystemBase{
 
     // Named Commands
 
-    Commands.clear();
-    Commands.add(Pair.of("Shoot", new Shoot(sShooter)));
-    Commands.add(Pair.of("ShootReverse", new ShootReverse(sShooter)));
-    Commands.add(Pair.of("IntakeIn", new IntakeIn(sIntake)));
-    Commands.add(Pair.of("IntakeOut", new IntakeOut(sIntake)));
-    Commands.add(Pair.of("MainPos", new MainPos(sShooter, sDoor)));
-    Commands.add(Pair.of("SafePos", new SafePos(sShooter, sDoor)));
-    Commands.add(Pair.of("ShootFarPos", new ShootFarPos(sShooter, sDoor)));
-
-    NamedCommands.registerCommands(Commands);
+    NamedCommands.registerCommand("Shoot", new Shoot(sShooter));
+    NamedCommands.registerCommand("ShootReverse", new ShootReverse(sShooter));
+    NamedCommands.registerCommand("IntakeIn", new IntakeIn(sIntake));
+    NamedCommands.registerCommand("IntakeOut", new IntakeOut(sIntake));
+    NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor));
+    NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor));
+    NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor));
 
     // AutoSelect.addOption("Test Drive", new TestDrive(sDrivetrain, sIntake, sDoor, sShooter));
 
