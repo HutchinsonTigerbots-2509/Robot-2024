@@ -107,13 +107,6 @@ public class Telemetry {
 
             SmartDashboard.putData("Module " + i, m_moduleMechanisms[i]);
         }
-
-    SmartDashboard.putNumber("AngleP", DriveSubsystem.getAngleP());
-    SmartDashboard.putNumber("Door Enc", m_robotContainer.getDoor().getAngle());
-    SmartDashboard.putBoolean("Light Sensor", m_robotContainer.getIntake().getLightSensor());
-    SmartDashboard.putBoolean("Top Limit Switch", m_robotContainer.getDoor().getTopLimit());
-    SmartDashboard.putBoolean("Bottom Limit Switch", m_robotContainer.getDoor().getbottomLimit());
-    SmartDashboard.putNumber("DoorEncoder", m_robotContainer.getDoor().getAngle());
     }
     
 }
