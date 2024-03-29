@@ -217,9 +217,9 @@ public static double swerveZ(CommandXboxController Stick) {
    }
 
   /** Drives the robot by converting ChassisSpeeds back to just our field oriented X,Y,Z cords */
-  public void DriveChassie(ChassisSpeeds speeds) {
+  public static void DriveChassie(ChassisSpeeds speeds) {
     //ChassisSpeeds speeds = getRobotRelativeSpeeds();
-    drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
+    DriveSubsystem.drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
   }
 
   /** Sets our swerveModules to the desired states given to the function */

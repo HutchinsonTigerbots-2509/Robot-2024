@@ -27,7 +27,7 @@ public class PathPlannerDrive extends SubsystemBase {
             drive::getPose2d,  // Robot pose supplier
             resetPose -> drive.ResetPosition(resetPose), // Method to reset odmetry
             drive::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            robotRelativeOutput -> drive.DriveChassie(robotRelativeOutput), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            robotRelativeOutput -> DriveSubsystem.DriveChassie(robotRelativeOutput), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
 
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                     new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
