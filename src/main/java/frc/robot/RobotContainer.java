@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.deser.impl.NullsAsEmptyProvider;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -67,6 +68,7 @@ public class RobotContainer extends SubsystemBase{
   private Door sDoor = new Door();
   private Climber sClimb = new Climber();
   private DriveSubsystem sDrivetrain = new DriveSubsystem();
+  private PathPlannerDrive sPathPlannerDrive = new PathPlannerDrive(sDrivetrain);
 
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
@@ -76,14 +78,9 @@ public class RobotContainer extends SubsystemBase{
 
 
   // Autochooser
-    SendableChooser<Command> AutoSelect = new SendableChooser<>();
     SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
+    SendableChooser<PathPlannerAuto> AutoSelectPathPlanner;
     List<Pair<String,Command>> Commands;
-
-  // Autos
-
-  // private TestDrive cmdTestDrive =
-  // new TestDrive(sDrivetrain, sIntake, sDoor, sShooter);
 
   private void configureBindings() {
 
@@ -189,16 +186,10 @@ public class RobotContainer extends SubsystemBase{
     NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor));
     NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor));
     NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor));
+    
+    AutoSelectPath.addOption("Test Path", PathPlannerPath.fromPathFile("Test Path"));
 
-    // AutoSelect.addOption("Test Drive", new TestDrive(sDrivetrain, sIntake, sDoor, sShooter));
-
-    // AutoSelect.addOption("Drive Forward", new DriveForward(sDrivetrain, sIntake, sDoor, sShooter));
-
-    // AutoSelect.addOption("Potato", new Potato(sDrivetrain, sIntake, sDoor, sShooter));
-
-    // AutoSelect.addOption("Potato & Shoot", new PotatoShoot(sDrivetrain, sIntake, sDoor, sShooter));
-
-    AutoSelectPath.setDefaultOption("Right Side Blue", PathPlannerPath.fromPathFile("Right Side Blue"));
+    AutoSelectPath.addOption("Right Side Blue", PathPlannerPath.fromPathFile("Right Side Blue"));
 
     AutoSelectPath.addOption("Left Side Blue", PathPlannerPath.fromPathFile("Left Side Blue"));
 
@@ -211,7 +202,7 @@ public class RobotContainer extends SubsystemBase{
     AutoSelectPath.addOption("Middle Red", PathPlannerPath.fromPathFile("Middle Red"));
 
 
-    SmartDashboard.putData(AutoSelect);
+    SmartDashboard.putData(AutoSelectPath);
 
     configureBindings();
   }
@@ -234,6 +225,11 @@ public class RobotContainer extends SubsystemBase{
 public DriveSubsystem getDrivetrain()
 {
   return sDrivetrain;
+}
+
+public PathPlannerDrive getPathPlannerDrive()
+{
+  return sPathPlannerDrive;
 }
 
 }

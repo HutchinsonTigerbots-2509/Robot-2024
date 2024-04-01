@@ -69,7 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
     TalonFX FrontRightDriveMotor = new TalonFX(Constants.kFrontRightDriveMotorId);    
     TalonFX BackLeftDriveMotor = new TalonFX(Constants.kBackLeftDriveMotorId);
     TalonFX BackRightDriveMotor = new TalonFX(Constants.kBackRightDriveMotorId);
-    Pose2d StartingPose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    Pose2d StartingPose = new Pose2d(Translation2d(0, 0), getAngleRotation2d());
     
 
       // <3 Our SwervePoseEstimator we saw an example of one using this.  We use this past start up to get our pose2d once it is set up.  Have yet to do that.
@@ -77,6 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
       // <3 - For Nate to read that I'm leaving rn
 
     SwerveDrivePoseEstimator SwerveEstie = new SwerveDrivePoseEstimator(PathPlannerReqConstants.swerveKinematics, getAngleRotation2d(), getStates(), StartingPose);
+    
 
 
   public void periodic() {
@@ -187,7 +188,8 @@ public static double swerveZ(CommandXboxController Stick) {
 
   /** Gets our Pose2d by using our Translation2d and our Pose2d*/
   public Pose2d getPose2d() {
-    Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    //Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
+    Pose2d pose = SwerveEstie.getEstimatedPosition();
     return pose;
   }
 
@@ -218,24 +220,25 @@ public static double swerveZ(CommandXboxController Stick) {
 
   /** Drives the robot by converting ChassisSpeeds back to just our field oriented X,Y,Z cords */
   public void DriveChassie(ChassisSpeeds speeds) {
-    //ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    SmartDashboard.putNumber("MetersPerSecondX", speeds.vxMetersPerSecond);
+    SmartDashboard.putNumber("MetersPerSecondY", speeds.vyMetersPerSecond);
     DriveSubsystem.drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
   }
 
-  /** Sets our swerveModules to the desired states given to the function */
-  private void setModuleStates(SwerveModuleState[] desiredStates) {
-    //TODO apply the given states
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
-      SwerveModuleState FrontLeftState = desiredStates[0];
-      SwerveModuleState FrontRightState = desiredStates[1];
-      SwerveModuleState RearLeftState = desiredStates[2];
-      SwerveModuleState RearRightState = desiredStates[3];
+  // /** Sets our swerveModules to the desired states given to the function */
+  // private void setModuleStates(SwerveModuleState[] desiredStates) {
+  //   
+  //   SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, MaxSpeed);
+  //     SwerveModuleState FrontLeftState = desiredStates[0];
+  //     SwerveModuleState FrontRightState = desiredStates[1];
+  //     SwerveModuleState RearLeftState = desiredStates[2];
+  //     SwerveModuleState RearRightState = desiredStates[3];
   
-      Constants.DriveTrain.getModule(0).apply(FrontLeftState, DriveRequestType.OpenLoopVoltage);
-      Constants.DriveTrain.getModule(1).apply(FrontRightState, DriveRequestType.OpenLoopVoltage);
-      Constants.DriveTrain.getModule(2).apply(RearLeftState, DriveRequestType.OpenLoopVoltage);
-      Constants.DriveTrain.getModule(3).apply(RearRightState, DriveRequestType.OpenLoopVoltage);
-    }
+  //     Constants.DriveTrain.getModule(0).apply(FrontLeftState, DriveRequestType.OpenLoopVoltage);
+  //     Constants.DriveTrain.getModule(1).apply(FrontRightState, DriveRequestType.OpenLoopVoltage);
+  //     Constants.DriveTrain.getModule(2).apply(RearLeftState, DriveRequestType.OpenLoopVoltage);
+  //     Constants.DriveTrain.getModule(3).apply(RearRightState, DriveRequestType.OpenLoopVoltage);
+  //   }
 
 
   /** Gets the current swerveModule States */
@@ -255,46 +258,46 @@ public static double swerveZ(CommandXboxController Stick) {
     return states;
   }
 
-  //** Sets our speed based on our desiredState in our SwerveModule */
-  private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
-    final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
-    final VelocityVoltage driveVelocity = new VelocityVoltage(0);
-    final SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(0,0,0);
+  // //** Sets our speed based on our desiredState in our SwerveModule */
+  // private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
+  //   final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
+  //   final VelocityVoltage driveVelocity = new VelocityVoltage(0);
+  //   final SimpleMotorFeedforward driveFeedForward = new SimpleMotorFeedforward(0,0,0);
     
 
-    if(isOpenLoop){
-        driveDutyCycle.Output = desiredState.speedMetersPerSecond / MaxSpeed;
-        FrontLeftDriveMotor.setControl(driveDutyCycle);
-        FrontRightDriveMotor.setControl(driveDutyCycle);
-        BackLeftDriveMotor.setControl(driveDutyCycle);
-        BackRightDriveMotor.setControl(driveDutyCycle);
+  //   if(isOpenLoop){
+  //       driveDutyCycle.Output = desiredState.speedMetersPerSecond / MaxSpeed;
+  //       FrontLeftDriveMotor.setControl(driveDutyCycle);
+  //       FrontRightDriveMotor.setControl(driveDutyCycle);
+  //       BackLeftDriveMotor.setControl(driveDutyCycle);
+  //       BackRightDriveMotor.setControl(driveDutyCycle);
         
-    }
-    else {
-        driveVelocity.Velocity = MPSToRPS(desiredState.speedMetersPerSecond, Constants.kwheelCircumference);
-        driveVelocity.FeedForward = driveFeedForward.calculate(desiredState.speedMetersPerSecond);
-        FrontLeftDriveMotor.setControl(driveVelocity);
-        FrontRightDriveMotor.setControl(driveVelocity);
-        BackLeftDriveMotor.setControl(driveVelocity);
-        BackRightDriveMotor.setControl(driveVelocity);
-    }
-  }
+  //   }
+  //   else {
+  //       driveVelocity.Velocity = MPSToRPS(desiredState.speedMetersPerSecond, Constants.kwheelCircumference);
+  //       driveVelocity.FeedForward = driveFeedForward.calculate(desiredState.speedMetersPerSecond);
+  //       FrontLeftDriveMotor.setControl(driveVelocity);
+  //       FrontRightDriveMotor.setControl(driveVelocity);
+  //       BackLeftDriveMotor.setControl(driveVelocity);
+  //       BackRightDriveMotor.setControl(driveVelocity);
+  //   }
+  // }
 
-  /** Sets the desired state of the SwerveModule*/
-  public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
+  // /** Sets the desired state of the SwerveModule*/
+  // public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
     
-    final PositionVoltage anglePosition = new PositionVoltage(0);
+  //   final PositionVoltage anglePosition = new PositionVoltage(0);
 
 
 
-    desiredState = SwerveModuleState.optimize(desiredState, new Rotation2d(Gyro.getAngle())); 
-    FrontLeftSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
-    FrontRightSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
-    BackLeftSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
-    BackRightSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
+  //   desiredState = SwerveModuleState.optimize(desiredState, new Rotation2d(Gyro.getAngle())); 
+  //   FrontLeftSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
+  //   FrontRightSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
+  //   BackLeftSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
+  //   BackRightSteerMotor.setControl(anglePosition.withPosition(desiredState.angle.getRotations()));
 
-    setSpeed(desiredState, isOpenLoop);
-  }
+  //   setSpeed(desiredState, isOpenLoop);
+  // }
 
   /** Converts the states of the different modules of the robot into a ChassisSpeed */
   public ChassisSpeeds getRobotRelativeSpeeds(){
@@ -357,5 +360,5 @@ public static double swerveZ(CommandXboxController Stick) {
     return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
         new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
   }
-
+  
 }

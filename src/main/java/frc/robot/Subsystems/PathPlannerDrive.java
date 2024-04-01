@@ -21,8 +21,6 @@ public class PathPlannerDrive extends SubsystemBase {
 
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
-
-    // <3 These are set up to do the correct things but is set up as Functions
     
             drive::getPose2d,  // Robot pose supplier
             resetPose -> drive.ResetPosition(resetPose), // Method to reset odmetry
@@ -30,10 +28,10 @@ public class PathPlannerDrive extends SubsystemBase {
             robotRelativeOutput -> drive.DriveChassie(robotRelativeOutput), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
 
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-                    4.5, // Max module speed, in m/s
-                    0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                    new PIDConstants(3.0, 0.01, 0.0), // Translation PID constants
+                    new PIDConstants(4.5, 0.01, 0.0), // Rotation PID constants
+                    5.5, // Max module speed, in m/s
+                    .3302, // Drive base radius in meters. Distance from robot center to furthest module.
                     new ReplanningConfig() // Default path replanning config. See the API for the options here
             ),
             () -> {
