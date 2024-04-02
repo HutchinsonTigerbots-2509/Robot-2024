@@ -182,18 +182,11 @@ public class RobotContainer extends SubsystemBase{
     
     AutoSelect.setDefaultOption("Middle 3 Rings", "Middle 3 Ring");
 
-    AutoSelect.addOption("Right Side Blue", "Right Side Blue");
+    AutoSelect.addOption("Middle 2 Rings", "Middle 2 Ring");
 
-    AutoSelect.addOption("Left Side Blue", "Left Side Blue");
+    AutoSelect.addOption("Wall GnG", "Wall GnG");
 
-    AutoSelect.addOption("Middle Blue", "Middle Blue");
-    
-    AutoSelect.addOption("Right Side Red", "Right Side Red");
-
-    AutoSelect.addOption("Left Side Red", "Left Side Red");
-
-    AutoSelect.addOption("Middle Red", "Middle Red");
-
+    AutoSelect.addOption("Field Shot1 Set", "Field Long1 Set");
 
     SmartDashboard.putData(AutoSelectPath);
 
