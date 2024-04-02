@@ -192,6 +192,8 @@ public class RobotContainer extends SubsystemBase{
 
     AutoSelect.addOption("Field Shot1 Set", "Field Long1 Set");
 
+    AutoSelect.addOption("Potato", "Potato");
+
     SmartDashboard.putData(AutoSelectPath);
     SmartDashboard.putData(field);
 
