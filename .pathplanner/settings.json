@@ -3,13 +3,10 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Left Side Blue",
-    "Left Side Red",
-    "Middle Blue",
-    "Middle Red",
+    "Wall Grab and Go",
     "Middle 3 ring",
-    "Right Side Blue",
-    "Right Side Red"
+    "Middle 2 ring",
+    "Field Long Shot 1 Set Up"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,

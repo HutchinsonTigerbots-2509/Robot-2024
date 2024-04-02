@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9891964634143235,
-        "y": 3.677202675375393
+        "x": 2.672476671629519,
+        "y": 7.003080254377342
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.782980299198829,
-        "y": 1.276481183490184
+        "x": 1.5950797094176201,
+        "y": 7.37782702384235
       },
       "isLocked": false,
-      "linkedName": "rsb 3"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.5905008158090483,
-        "y": 3.80602187737899
+        "x": 0.8221644973960404,
+        "y": 6.616622648366552
       },
       "prevControl": {
-        "x": 4.358837134222056,
-        "y": 1.159372818032369
+        "x": 1.0329595552201074,
+        "y": 6.956236908194216
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rsb shot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -33.23171106797936,
+    "rotation": 60.25511870305777,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Right Side Blue",
+  "folder": "Wall Grab and Go",
   "previewStartingState": {
-    "rotation": 55.49147701233155,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

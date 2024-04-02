@@ -6,9 +6,7 @@ package frc.robot.Commands.PresetPos;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Commands.Door.TeleDoorController;
-import frc.robot.Commands.Shooter.Shoot;
 import frc.robot.Commands.Shooter.Stop;
 import frc.robot.Subsystems.Door;
 import frc.robot.Subsystems.Shooter;

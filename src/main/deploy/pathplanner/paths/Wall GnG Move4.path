@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.763603681053517,
-        "y": 2.2595299036751926
+        "x": 0.8221644973960404,
+        "y": 6.616622648366552
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.78288818116098,
-        "y": 0.7992223676755059
+        "x": 2.0518023347031122,
+        "y": 7.7759954664008
       },
       "isLocked": false,
-      "linkedName": "left side red 2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 14.002950313592937,
-        "y": 3.8283738105937757
+        "x": 7.485630491945733,
+        "y": 7.459802879664699
       },
       "prevControl": {
-        "x": 13.183994060295811,
-        "y": 3.1870225278912105
+        "x": 5.190306528972555,
+        "y": 7.47151371621048
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "shoot red left"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -140.65621563451595,
+    "rotation": -1.0809241866608033,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Left Side Red",
+  "folder": "Wall Grab and Go",
   "previewStartingState": {
-    "rotation": -179.65063982049728,
+    "rotation": 59.74356283647073,
     "velocity": 0
   },
   "useDefaultConstraints": true

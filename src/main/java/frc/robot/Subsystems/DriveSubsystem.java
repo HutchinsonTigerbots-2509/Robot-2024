@@ -242,9 +242,4 @@ public class DriveSubsystem extends SubsystemBase {
     return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
         new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
   }
-
-  public void DriveRoboRel(double x, double y) {
-    drivetrain.setControl(drive.withVelocityX(x * MaxSpeed).withVelocityY(y * MaxSpeed));
-  }
-  
 }

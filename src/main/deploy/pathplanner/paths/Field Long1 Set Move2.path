@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.002950313592937,
-        "y": 3.8283738105937757
+        "x": 7.9774856268685435,
+        "y": 0.7846260485673593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.950626208944728,
-        "y": 1.2432347941618975
+        "x": 6.150595125726627,
+        "y": 1.0305536160287727
       },
       "isLocked": false,
-      "linkedName": "shoot red left"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.763603681053517,
-        "y": 2.2595299036751926
+        "x": 2.9652475852740565,
+        "y": 3.279034232818822
       },
       "prevControl": {
-        "x": 10.115374846134308,
-        "y": 1.7563158203239497
+        "x": 3.8904036723907955,
+        "y": 1.6278062798636284
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left side red 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 158.00887008282294,
+    "rotation": -36.15818543980835,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Left Side Red",
+  "folder": "Field Long Shot 1 Set Up",
   "previewStartingState": {
-    "rotation": -141.34019174590995,
+    "rotation": -1.1017061152062624,
     "velocity": 0
   },
   "useDefaultConstraints": true

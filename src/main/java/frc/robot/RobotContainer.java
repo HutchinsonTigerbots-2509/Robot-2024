@@ -35,7 +35,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Commands.DriveShoot;
 import frc.robot.Commands.Arm.DownArm;
 import frc.robot.Commands.Arm.UpArm;
 import frc.robot.Commands.Climber.ClimbExtend;
@@ -145,16 +144,16 @@ public class RobotContainer extends SubsystemBase{
 
     Trigger WallPosBtn;
     WallPosBtn = new JoystickButton(ButtonBoardPrimary, 11);
-    WallPosBtn.onTrue(new WallPosition(sShooter, sDoor));
+    WallPosBtn.onTrue(new WallPosition(sDoor));
     // WallPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger FeedStationPosBtn;
     FeedStationPosBtn = new JoystickButton(ButtonBoardPrimary, 12);
-    FeedStationPosBtn.onTrue(new FeedStationPosition(sShooter, sDoor));
+    FeedStationPosBtn.onTrue(new FeedStationPosition(sDoor));
 
     Trigger MainPosBtn;
     MainPosBtn = new JoystickButton(ButtonBoardPrimary, 9);
-    MainPosBtn.onTrue(new MainPos(sShooter, sDoor));
+    MainPosBtn.onTrue(new MainPos(sDoor));
     //MainPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger ShootFarPosBtn;
@@ -181,15 +180,17 @@ public class RobotContainer extends SubsystemBase{
 
     // Named Commands
 
-    NamedCommands.registerCommand("Shoot3", new Shoot(sShooter).withTimeout(3));
-    NamedCommands.registerCommand("ShootReverse3", new ShootReverse(sShooter).withTimeout(3));
-    NamedCommands.registerCommand("IntakeIn3", new IntakeIn(sIntake).withTimeout(3));
-    NamedCommands.registerCommand("IntakeOut3", new IntakeOut(sIntake).withTimeout(3));
+    for (double i = 0; i < 10; ++i) {
+    NamedCommands.registerCommand("Shoot" + i, new Shoot(sShooter).withTimeout(i));
+    NamedCommands.registerCommand("ShootReverse" + i, new ShootReverse(sShooter).withTimeout(i));
+    NamedCommands.registerCommand("IntakeIn" + i, new IntakeIn(sIntake).withTimeout(i));
+    NamedCommands.registerCommand("IntakeOut" +i, new IntakeOut(sIntake).withTimeout(i));
+    }
     NamedCommands.registerCommand("Shoot", new Shoot(sShooter));
     NamedCommands.registerCommand("ShootReverse", new ShootReverse(sShooter));
     NamedCommands.registerCommand("IntakeIn", new IntakeIn(sIntake));
     NamedCommands.registerCommand("IntakeOut", new IntakeOut(sIntake));
-    NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor).withTimeout(3));
+    NamedCommands.registerCommand("MainPos", new MainPos(sDoor).withTimeout(3));
     NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(3));
     NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(3));
     

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5905008158090483,
-        "y": 3.80602187737899
+        "x": 1.3491521419562087,
+        "y": 5.574358195791997
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0472234410945274,
-        "y": 2.41243232843099
+        "x": 1.7941639306959054,
+        "y": 4.321298685393376
       },
       "isLocked": false,
-      "linkedName": "rsb shot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.860377261410728,
-        "y": 2.1899264340611406
+        "x": 2.5905008158090483,
+        "y": 4.133925300660873
       },
       "prevControl": {
-        "x": 5.506499115708644,
-        "y": 1.065686125666116
+        "x": 1.2554654495899562,
+        "y": 4.145636137206654
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "rsb 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 29.167613379577837,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Right Side Blue",
+  "folder": "Middle 2 ring",
   "previewStartingState": {
-    "rotation": -37.207921921781576,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
