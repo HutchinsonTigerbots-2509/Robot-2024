@@ -99,7 +99,7 @@ public class RobotContainer extends SubsystemBase{
     ShootBtn.whileTrue(new Shoot(sShooter));
 
     Trigger ShootReverseBtn;
-    ShootReverseBtn = new JoystickButton(ButtonBoardSecondary, 11);
+    ShootReverseBtn = new JoystickButton(ButtonBoardSecondary, 10);
     ShootReverseBtn.whileTrue(new ShootReverse(sShooter));
 
     // Intake
@@ -110,6 +110,10 @@ public class RobotContainer extends SubsystemBase{
     Trigger IntakeOutBtn;
     IntakeOutBtn = new JoystickButton(ButtonBoardPrimary, 7);
     IntakeOutBtn.whileTrue(new IntakeOut(sIntake));
+
+    Trigger BypassProximitySensorBtn;
+    BypassProximitySensorBtn = new JoystickButton(ButtonBoardSecondary, 11);
+    BypassProximitySensorBtn.onTrue(sIntake.cmdBypassProxSens());
 
     // Door
 
@@ -157,6 +161,7 @@ public class RobotContainer extends SubsystemBase{
   ResetGyroBtn.whileTrue(new ResetGyro(sDrivetrain));
 
     SmartDashboard.putData(new IntakeIn(sIntake));
+    
   }
   
   public RobotContainer() {
