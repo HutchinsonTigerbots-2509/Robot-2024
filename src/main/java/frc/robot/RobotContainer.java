@@ -194,7 +194,7 @@ public class RobotContainer extends SubsystemBase{
 
     AutoSelect.addOption("Potato", "Potato");
 
-    SmartDashboard.putData(AutoSelectPath);
+    SmartDashboard.putData(AutoSelect);
     SmartDashboard.putData(field);
 
     PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
