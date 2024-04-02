@@ -12,15 +12,66 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Field Long1 Set Move1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Field Long1 Set Move1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Field Long1 Set Move2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Field Long1 Set Move2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootFarPos"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn2"
+                }
+              }
+            ]
           }
         },
         {

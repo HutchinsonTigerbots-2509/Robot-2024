@@ -18,15 +18,60 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Wall GnG Move2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Wall GnG Move2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Wall GnG Move3"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Wall GnG Move3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake2"
+                }
+              }
+            ]
           }
         },
         {

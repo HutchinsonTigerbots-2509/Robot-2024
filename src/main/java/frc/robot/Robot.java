@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.getDrivetrain().Pigeon2Reset();
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
         drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(m_robotContainer.joystick) * DriveSubsystem.speedValue) // Drive forward with
                                                                                            // negative Y (forward)
