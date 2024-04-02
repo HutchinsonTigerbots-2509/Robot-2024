@@ -25,13 +25,10 @@ public class Door extends SubsystemBase {
   public DigitalInput BottomLimitSwitch = new DigitalInput(Constants.kBottomLimitSwitchID);
 
   public Door() {
-
-    
     DoorEncoder.setPositionOffset(88);
     DoorEncoder.reset();
   }
 
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -42,12 +39,12 @@ public class Door extends SubsystemBase {
 
   /** Moves the door up off from the ground */
   public void DoorOpen(double Speed) {
-      Door.set(Speed);
+    Door.set(Speed);
   }
 
   /** Moves the door down onto the ground */
   public void DoorClose(double Speed) {
-      Door.set(-Speed);
+    Door.set(-Speed);
   }
 
   /** Used to move the door up and down based on it hitting the top and bottom limit switches using the input speed*/

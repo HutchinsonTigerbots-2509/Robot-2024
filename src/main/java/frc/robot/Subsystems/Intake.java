@@ -21,8 +21,7 @@ public class Intake extends SubsystemBase {
   public DigitalInput LightSensor = new DigitalInput(Constants.kLightSensorID);
   
 
-  public Intake() {
-  }
+  public Intake() {}
 
   @Override
   public void periodic() {

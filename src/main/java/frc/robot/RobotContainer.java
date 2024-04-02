@@ -73,15 +73,15 @@ public class RobotContainer extends SubsystemBase{
 
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
-    private final Joystick ButtonBoardPrimary = new Joystick(1);
+  private final Joystick ButtonBoardPrimary = new Joystick(1);
   private final Joystick ButtonBoardSecondary = new Joystick(2);
   private final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
 
 
   // Autochooser
-    SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
-    SendableChooser<String> AutoSelect = new SendableChooser<>();
-    List<Pair<String,Command>> Commands;
+  SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
+  SendableChooser<String> AutoSelect = new SendableChooser<>();
+  List<Pair<String,Command>> Commands;
 
   private void configureBindings() {
 
@@ -133,13 +133,13 @@ public class RobotContainer extends SubsystemBase{
     
     // Climber
 
-     Trigger ClimbExtendBtn;
-     ClimbExtendBtn = new JoystickButton(ButtonBoardPrimary, 4);
-     ClimbExtendBtn.whileTrue(new ClimbExtend(sClimb));
+    Trigger ClimbExtendBtn;
+    ClimbExtendBtn = new JoystickButton(ButtonBoardPrimary, 4);
+    ClimbExtendBtn.whileTrue(new ClimbExtend(sClimb));
 
-     Trigger ClimbRetractBtn;
-     ClimbRetractBtn = new JoystickButton(ButtonBoardPrimary, 5);
-     ClimbRetractBtn.whileTrue(new ClimbRetract(sClimb));
+    Trigger ClimbRetractBtn;
+    ClimbRetractBtn = new JoystickButton(ButtonBoardPrimary, 5);
+    ClimbRetractBtn.whileTrue(new ClimbRetract(sClimb));
 
     // Preset Poses
 
@@ -152,10 +152,10 @@ public class RobotContainer extends SubsystemBase{
     FeedStationPosBtn = new JoystickButton(ButtonBoardPrimary, 12);
     FeedStationPosBtn.onTrue(new FeedStationPosition(sShooter, sDoor));
 
-     Trigger MainPosBtn;
-     MainPosBtn = new JoystickButton(ButtonBoardPrimary, 9);
-     MainPosBtn.onTrue(new MainPos(sShooter, sDoor));
-     //MainPosBtn.onFalse(new SafePos(sShooter, sDoor));
+    Trigger MainPosBtn;
+    MainPosBtn = new JoystickButton(ButtonBoardPrimary, 9);
+    MainPosBtn.onTrue(new MainPos(sShooter, sDoor));
+    //MainPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger ShootFarPosBtn;
     ShootFarPosBtn = new JoystickButton(ButtonBoardPrimary, 10);
@@ -193,7 +193,7 @@ public class RobotContainer extends SubsystemBase{
     NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(3));
     NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(3));
     
-    AutoSelect.setDefaultOption("Test Path", "Test Auto");
+    AutoSelect.setDefaultOption("Middle 3 Rings", "Middle 3 Ring");
 
     AutoSelect.addOption("Right Side Blue", "Right Side Blue");
 
@@ -235,10 +235,6 @@ public DriveSubsystem getDrivetrain()
 public PathPlannerDrive getPathPlannerDrive()
 {
   return sPathPlannerDrive;
-}
-
-public CommandSwerveDrivetrain getDrive() {
-  return drivetrain;
 }
 
 }
