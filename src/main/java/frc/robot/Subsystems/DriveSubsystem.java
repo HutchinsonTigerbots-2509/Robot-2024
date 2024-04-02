@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Telemetry;
 import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
 import frc.robot.Constants.Constants;
@@ -214,5 +215,10 @@ public class DriveSubsystem extends SubsystemBase {
     // relative to the chassis.
     return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
         new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
+
+  public static boolean isTele() {
+    boolean TeleCheck = RobotModeTriggers.teleop().getAsBoolean();
+    return TeleCheck;
   }
 }
