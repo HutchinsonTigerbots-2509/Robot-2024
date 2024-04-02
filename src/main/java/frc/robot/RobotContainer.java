@@ -11,6 +11,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -18,6 +19,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -63,6 +65,7 @@ public class RobotContainer extends SubsystemBase{
   final Joystick ButtonBoardPrimary = new Joystick(1);
   final Joystick ButtonBoardSecondary = new Joystick(2);
   final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
+  private final Field2d field;
 
 
   // Autochooser
@@ -158,14 +161,7 @@ public class RobotContainer extends SubsystemBase{
   
   public RobotContainer() {
 
-    // if (DriveSubsystem.isTele()) {
-    //   drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-    //     drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
-    //                                                                                        // negative Y (forward)
-    //         .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
-    //         .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
-    //     ));
-    // }
+    field = new Field2d();
 
     // Named Commands
 
@@ -192,6 +188,20 @@ public class RobotContainer extends SubsystemBase{
     AutoSelect.addOption("Field Shot1 Set", "Field Long1 Set");
 
     SmartDashboard.putData(AutoSelectPath);
+    SmartDashboard.putData(field);
+
+    PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
+      field.setRobotPose(pose);
+    });
+
+    PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
+      field.getObject("target pose").setPose(pose);
+    });
+
+    PathPlannerLogging.setLogActivePathCallback((poses) -> {
+      field.getObject("path").setPoses(poses);
+    });
+
 
     configureBindings();
   }
