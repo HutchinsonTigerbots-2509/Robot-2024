@@ -4,14 +4,29 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
+import frc.robot.Constants.Constants;
+import frc.robot.Subsystems.DriveSubsystem;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private DriveSubsystem m_DriveSubsystem;
+
+  private final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
+
+  final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+  final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  final Telemetry logger = new Telemetry(m_DriveSubsystem.MaxSpeed);
 
   @Override
   public void robotInit() {
@@ -35,9 +50,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // if (m_DriveSubsystem.getDefaultCommand() != null) {
-    //   m_DriveSubsystem.removeDefaultCommand();
-    // }
+    m_DriveSubsystem.removeDefaultCommand();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -58,6 +71,12 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+        drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(m_robotContainer.joystick) * DriveSubsystem.speedValue) // Drive forward with
+                                                                                           // negative Y (forward)
+            .withVelocityY(DriveSubsystem.swerveX(m_robotContainer.joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
+            .withRotationalRate(DriveSubsystem.swerveZ(m_robotContainer.joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
   }
 
   @Override
@@ -70,6 +89,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
+    
   }
 
   @Override

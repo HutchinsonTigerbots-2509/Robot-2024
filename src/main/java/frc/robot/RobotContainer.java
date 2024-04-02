@@ -59,10 +59,10 @@ public class RobotContainer extends SubsystemBase{
   private PathPlannerDrive sPathPlannerDrive = new PathPlannerDrive(sDrivetrain);
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  private final CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
-  private final Joystick ButtonBoardPrimary = new Joystick(1);
-  private final Joystick ButtonBoardSecondary = new Joystick(2);
-  private final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
+  final CommandXboxController joystick = new CommandXboxController(0); // Driver Joystick
+  final Joystick ButtonBoardPrimary = new Joystick(1);
+  final Joystick ButtonBoardSecondary = new Joystick(2);
+  final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
 
 
   // Autochooser
@@ -158,14 +158,14 @@ public class RobotContainer extends SubsystemBase{
   
   public RobotContainer() {
 
-    if (DriveSubsystem.isTele()) {
-      drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
-                                                                                           // negative Y (forward)
-            .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
-            .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
-        ));
-    }
+    // if (DriveSubsystem.isTele()) {
+    //   drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+    //     drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
+    //                                                                                        // negative Y (forward)
+    //         .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
+    //         .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
+    //     ));
+    // }
 
     // Named Commands
 
