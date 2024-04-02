@@ -17,6 +17,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private DriveSubsystem m_DriveSubsystem;
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
@@ -39,6 +41,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    // if (m_DriveSubsystem.getDefaultCommand() != null) {
+    //   m_DriveSubsystem.removeDefaultCommand();
+    // }
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {

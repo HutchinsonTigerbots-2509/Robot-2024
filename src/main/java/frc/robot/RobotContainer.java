@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.DriveShoot;
 import frc.robot.Commands.Arm.DownArm;
 import frc.robot.Commands.Arm.UpArm;
 import frc.robot.Commands.Climber.ClimbExtend;
@@ -79,7 +80,7 @@ public class RobotContainer extends SubsystemBase{
 
   // Autochooser
     SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
-    SendableChooser<PathPlannerAuto> AutoSelectPathPlanner;
+    SendableChooser<String> AutoSelect = new SendableChooser<>();
     List<Pair<String,Command>> Commands;
 
   private void configureBindings() {
@@ -170,36 +171,37 @@ public class RobotContainer extends SubsystemBase{
   
   public RobotContainer() {
 
-      drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
-                                                                                           // negative Y (forward)
-            .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
-            .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
-        ));
+      // drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+      //   drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
+      //                                                                                      // negative Y (forward)
+      //       .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
+      //       .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
+      //   ));
+
 
     // Named Commands
 
-    NamedCommands.registerCommand("Shoot", new Shoot(sShooter));
-    NamedCommands.registerCommand("ShootReverse", new ShootReverse(sShooter));
-    NamedCommands.registerCommand("IntakeIn", new IntakeIn(sIntake));
-    NamedCommands.registerCommand("IntakeOut", new IntakeOut(sIntake));
-    NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor));
-    NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor));
-    NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor));
+    NamedCommands.registerCommand("Shoot3", new Shoot(sShooter).withTimeout(3));
+    NamedCommands.registerCommand("ShootReverse3", new ShootReverse(sShooter).withTimeout(3));
+    NamedCommands.registerCommand("IntakeIn3", new IntakeIn(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("IntakeOut3", new IntakeOut(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor).withTimeout(3));
+    NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(3));
+    NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(3));
     
-    AutoSelectPath.addOption("Test Path", PathPlannerPath.fromPathFile("Test Path"));
+    AutoSelect.setDefaultOption("Test Path", "Test Auto");
 
-    AutoSelectPath.addOption("Right Side Blue", PathPlannerPath.fromPathFile("Right Side Blue"));
+    AutoSelect.addOption("Right Side Blue", "Right Side Blue");
 
-    AutoSelectPath.addOption("Left Side Blue", PathPlannerPath.fromPathFile("Left Side Blue"));
+    AutoSelect.addOption("Left Side Blue", "Left Side Blue");
 
-    AutoSelectPath.addOption("Middle Blue", PathPlannerPath.fromPathFile("Middle Blue"));
+    AutoSelect.addOption("Middle Blue", "Middle Blue");
     
-    AutoSelectPath.addOption("Right Side Red", PathPlannerPath.fromPathFile("Right Side Red"));
+    AutoSelect.addOption("Right Side Red", "Right Side Red");
 
-    AutoSelectPath.addOption("Left Side Red", PathPlannerPath.fromPathFile("Left Side Red"));
+    AutoSelect.addOption("Left Side Red", "Left Side Red");
 
-    AutoSelectPath.addOption("Middle Red", PathPlannerPath.fromPathFile("Middle Red"));
+    AutoSelect.addOption("Middle Red", "Middle Red");
 
 
     SmartDashboard.putData(AutoSelectPath);
@@ -208,8 +210,7 @@ public class RobotContainer extends SubsystemBase{
   }
 
   public Command getAutonomousCommand() {
-    PathPlannerPath path = AutoSelectPath.getSelected();
-    return AutoBuilder.followPath(path);
+    return AutoBuilder.buildAuto(AutoSelect.getSelected());
   }
 
   public Door getDoor()
@@ -230,6 +231,10 @@ public DriveSubsystem getDrivetrain()
 public PathPlannerDrive getPathPlannerDrive()
 {
   return sPathPlannerDrive;
+}
+
+public CommandSwerveDrivetrain getDrive() {
+  return drivetrain;
 }
 
 }

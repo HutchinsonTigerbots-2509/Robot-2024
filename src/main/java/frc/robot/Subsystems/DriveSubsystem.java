@@ -46,19 +46,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Telemetry;
+import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
 import frc.robot.Constants.Constants;
 import frc.robot.Constants.PathPlannerReqConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-  AHRS navx = new AHRS();
   public static double MaxSpeed = 5.5; // 6 meters per second desired top speed
   public static double speedValue = MaxSpeed;
   private static double CreepSpeed = 0.8; // creep mode speed
   public static double MaxAngularRate = 2.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
   public final static Pigeon2 Gyro = new Pigeon2(Constants.kPigeonID);
+  private final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
 
+  final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+  final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  final Telemetry logger = new Telemetry(MaxSpeed);
 
     TalonFX FrontLeftSteerMotor = new TalonFX(Constants.kFrontLeftSteerMotorId);    
     TalonFX FrontRightSteerMotor = new TalonFX(Constants.kFrontRightSteerMotorId);    
@@ -70,11 +75,6 @@ public class DriveSubsystem extends SubsystemBase {
     TalonFX BackLeftDriveMotor = new TalonFX(Constants.kBackLeftDriveMotorId);
     TalonFX BackRightDriveMotor = new TalonFX(Constants.kBackRightDriveMotorId);
     Pose2d StartingPose = new Pose2d(Translation2d(0, 0), getAngleRotation2d());
-    
-
-      // <3 Our SwervePoseEstimator we saw an example of one using this.  We use this past start up to get our pose2d once it is set up.  Have yet to do that.
-      // <3 Everything below the line I made is used for the pathplanning system, or atleast was at some point.
-      // <3 - For Nate to read that I'm leaving rn
 
     SwerveDrivePoseEstimator SwerveEstie = new SwerveDrivePoseEstimator(PathPlannerReqConstants.swerveKinematics, getAngleRotation2d(), getStates(), StartingPose);
     
@@ -101,7 +101,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   /** Resets our pigeon 2 gyro */
-  public static void Pigeon2Reset() {
+  public void Pigeon2Reset() {
     Gyro.reset();
   }
 
@@ -179,13 +179,6 @@ public static double swerveZ(CommandXboxController Stick) {
     return angle;
   }
 
-  /** Gets the current Translation2d of the robot */
-  public Translation2d getTranslation2d() {
-    //TODO make this our current number not 0,0
-    Translation2d trans = Translation2d(0,0);
-    return trans;
-  }
-
   /** Gets our Pose2d by using our Translation2d and our Pose2d*/
   public Pose2d getPose2d() {
     //Pose2d pose = new Pose2d(getTranslation2d(), getAngleRotation2d());
@@ -222,7 +215,9 @@ public static double swerveZ(CommandXboxController Stick) {
   public void DriveChassie(ChassisSpeeds speeds) {
     SmartDashboard.putNumber("MetersPerSecondX", speeds.vxMetersPerSecond);
     SmartDashboard.putNumber("MetersPerSecondY", speeds.vyMetersPerSecond);
-    DriveSubsystem.drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
+    //drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond));
+    //DriveSubsystem.drive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond);
+    drivetrain.setControl(DriveSubsystem.drive.withVelocityX(-speeds.vxMetersPerSecond).withVelocityY(-speeds.vyMetersPerSecond).withRotationalRate(speeds.omegaRadiansPerSecond));
   }
 
   // /** Sets our swerveModules to the desired states given to the function */
@@ -359,6 +354,10 @@ public static double swerveZ(CommandXboxController Stick) {
     // relative to the chassis.
     return new SwerveModuleState(DriveMotor.getVelocity().getValueAsDouble(),
         new Rotation2d(SteerMotor.getPosition().getValueAsDouble()));
+  }
+
+  public void DriveRoboRel(double x, double y) {
+    drivetrain.setControl(drive.withVelocityX(x * MaxSpeed).withVelocityY(y * MaxSpeed));
   }
   
 }
