@@ -185,6 +185,10 @@ public class RobotContainer extends SubsystemBase{
     NamedCommands.registerCommand("ShootReverse3", new ShootReverse(sShooter).withTimeout(3));
     NamedCommands.registerCommand("IntakeIn3", new IntakeIn(sIntake).withTimeout(3));
     NamedCommands.registerCommand("IntakeOut3", new IntakeOut(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("Shoot", new Shoot(sShooter));
+    NamedCommands.registerCommand("ShootReverse", new ShootReverse(sShooter));
+    NamedCommands.registerCommand("IntakeIn", new IntakeIn(sIntake));
+    NamedCommands.registerCommand("IntakeOut", new IntakeOut(sIntake));
     NamedCommands.registerCommand("MainPos", new MainPos(sShooter, sDoor).withTimeout(3));
     NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(3));
     NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(3));
