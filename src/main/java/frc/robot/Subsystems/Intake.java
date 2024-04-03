@@ -48,14 +48,26 @@ SmartDashboard.putBoolean("HOLDING RING", LightSensor.get());
   /** Intakes rings into the robot unless light sensor is hit */
   public void IntakeIn() {
     if (Shooter.Shooter.getMotorOutputPercent() < -0.1) {
-      Intake.set(ControlMode.PercentOutput, 1);
+      Intake.set(ControlMode.PercentOutput, .6);
     } else if (proxSensorBypass == true) {
-    Intake.set(ControlMode.PercentOutput, 1);
+    Intake.set(ControlMode.PercentOutput, .6);
     } else if (LightSensor.get()) {
     Intake.set(ControlMode.PercentOutput, 0);
     } else if (!LightSensor.get()) {
-      Intake.set(ControlMode.PercentOutput, 1);
+      Intake.set(ControlMode.PercentOutput, .6);
     }
+  }
+
+  public void IntakeInAuto() {
+    if (LightSensor.get()) {
+      Intake.set(ControlMode.PercentOutput, 0);
+    } else if (!LightSensor.get()) {
+      Intake.set(ControlMode.PercentOutput, .4);
+    }
+  }
+
+  public void IntakeShoot() {
+    Intake.set(ControlMode.PercentOutput, 1);
   }
 
   /** Reverses intake in case of emergencies */

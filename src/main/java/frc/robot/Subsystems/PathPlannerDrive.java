@@ -27,11 +27,11 @@ public class PathPlannerDrive extends SubsystemBase {
             robotRelativeOutput -> drive.DriveChassie(robotRelativeOutput), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
 
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                    new PIDConstants(1.0, 0.00001, 0.1), // Translation PID constants
-                    new PIDConstants(1.5, 0.00001, 0.1), // Rotation PID constants
+                    new PIDConstants(.07, 0.000001, 0), // Translation PID constants
+                    new PIDConstants(.01, 0.000001, 0), // Rotation PID constants
                     5.5, // Max module speed, in m/s
                     .3302, // Drive base radius in meters. Distance from robot center to furthest module.
-                    new ReplanningConfig() // Default path replanning config. See the API for the options here
+                    new ReplanningConfig(false, false) // Default path replanning config. See the API for the options here
             ),
             () -> {
               // Boolean supplier that controls when the path will be mirrored for the red alliance

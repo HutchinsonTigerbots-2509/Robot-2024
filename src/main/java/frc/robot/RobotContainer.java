@@ -35,7 +35,9 @@ import frc.robot.Commands.Climber.ClimbRetract;
 import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
 import frc.robot.Commands.Drivetrain.ResetGyro;
 import frc.robot.Commands.Intake.IntakeIn;
+import frc.robot.Commands.Intake.IntakeInAuto;
 import frc.robot.Commands.Intake.IntakeOut;
+import frc.robot.Commands.Intake.IntakeShoot;
 import frc.robot.Commands.PresetPos.SafePos;
 import frc.robot.Commands.PresetPos.ShootFarPos;
 import frc.robot.Commands.PresetPos.WallPosition;
@@ -43,6 +45,8 @@ import frc.robot.Commands.PresetPos.FeedStationPosition;
 import frc.robot.Commands.PresetPos.MainPos;
 import frc.robot.Commands.Shooter.Shoot;
 import frc.robot.Commands.Shooter.ShootReverse;
+import frc.robot.Commands.Shooter.ShootStart;
+import frc.robot.Commands.Shooter.Stop;
 import frc.robot.Constants.Constants;
 import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Door;
@@ -170,19 +174,35 @@ public class RobotContainer extends SubsystemBase{
 
     // Named Commands
 
-    for (double i = 0; i < 10; ++i) {
-    NamedCommands.registerCommand("Shoot" + i, new Shoot(sShooter).withTimeout(i));
-    NamedCommands.registerCommand("ShootReverse" + i, new ShootReverse(sShooter).withTimeout(i));
-    NamedCommands.registerCommand("IntakeIn" + i, new IntakeIn(sIntake).withTimeout(i));
-    NamedCommands.registerCommand("IntakeOut" +i, new IntakeOut(sIntake).withTimeout(i));
-    }
+    NamedCommands.registerCommand("ShootStart", new ShootStart(sShooter).withTimeout(.1));
+    NamedCommands.registerCommand("ShootStop", new Stop(sShooter).withTimeout(.1));
+
+    NamedCommands.registerCommand("IntakeIn1", new IntakeInAuto(sIntake).withTimeout(1));
+    NamedCommands.registerCommand("IntakeIn2", new IntakeInAuto(sIntake).withTimeout(2));
+    NamedCommands.registerCommand("IntakeIn3", new IntakeInAuto(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("IntakeIn4", new IntakeInAuto(sIntake).withTimeout(4));
+
+    NamedCommands.registerCommand("IntakeOut1", new IntakeOut(sIntake).withTimeout(1));
+    NamedCommands.registerCommand("IntakeOut2", new IntakeOut(sIntake).withTimeout(2));
+    NamedCommands.registerCommand("IntakeOut3", new IntakeOut(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("IntakeOut4", new IntakeOut(sIntake).withTimeout(4));
+    
+    
+
+    NamedCommands.registerCommand("IntakeShoot.5", new IntakeShoot(sIntake).withTimeout(.5));
+    NamedCommands.registerCommand("IntakeShoot1", new IntakeShoot(sIntake).withTimeout(1));
+    NamedCommands.registerCommand("IntakeShoot2", new IntakeShoot(sIntake).withTimeout(2));
+    NamedCommands.registerCommand("IntakeShoot3", new IntakeShoot(sIntake).withTimeout(3));
+    NamedCommands.registerCommand("IntakeShoot4", new IntakeShoot(sIntake).withTimeout(4));
+
+
     NamedCommands.registerCommand("Shoot", new Shoot(sShooter));
     NamedCommands.registerCommand("ShootReverse", new ShootReverse(sShooter));
-    NamedCommands.registerCommand("IntakeIn", new IntakeIn(sIntake));
+    NamedCommands.registerCommand("IntakeIn", new IntakeInAuto(sIntake));
     NamedCommands.registerCommand("IntakeOut", new IntakeOut(sIntake));
-    NamedCommands.registerCommand("MainPos", new MainPos(sDoor).withTimeout(3));
-    NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(3));
-    NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(3));
+    NamedCommands.registerCommand("MainPos", new MainPos(sDoor).withTimeout(2));
+    NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(2));
+    NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(2));
     
     AutoSelect.setDefaultOption("Middle 3 Rings", "Middle 3 Ring");
 

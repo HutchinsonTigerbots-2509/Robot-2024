@@ -12,6 +12,24 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "ShootStart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
           "type": "deadline",
           "data": {
             "commands": [
@@ -31,53 +49,21 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Field Long1 Set Move2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootFarPos"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeIn2"
-                }
-              }
-            ]
+            "name": "ShootFarPos"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Field Long1 Set Move3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStop"
           }
         }
       ]
