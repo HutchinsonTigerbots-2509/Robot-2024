@@ -12,19 +12,13 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Wall GnG Move1"
-          }
-        },
-        {
           "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Wall GnG Move2"
+                  "pathName": "Wall GnG Move1"
                 }
               },
               {
@@ -43,7 +37,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Wall GnG Move3"
+                  "pathName": "Wall GnG Move2"
                 }
               },
               {
@@ -77,7 +71,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Wall GnG Move4"
+            "pathName": "Wall GnG Move3"
           }
         }
       ]

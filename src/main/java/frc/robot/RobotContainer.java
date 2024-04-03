@@ -73,9 +73,7 @@ public class RobotContainer extends SubsystemBase{
 
 
   // Autochooser
-  SendableChooser<PathPlannerPath> AutoSelectPath = new SendableChooser<>();
   SendableChooser<String> AutoSelect = new SendableChooser<>();
-  List<Pair<String,Command>> Commands;
 
   private void configureBindings() {
 
@@ -170,7 +168,16 @@ public class RobotContainer extends SubsystemBase{
   
   public RobotContainer() {
 
+
+
     field = new Field2d();
+
+    // drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
+    // drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
+    //                                                                                    // negative Y (forward)
+    //     .withVelocityY(DriveSubsystem.swerveX(joystick) * DriveSubsystem.speedValue) // Drive left with negative X (left)
+    //     .withRotationalRate(DriveSubsystem.swerveZ(joystick) * DriveSubsystem.MaxAngularRate) // Drive counterclockwise with negative X (left)
+    // ));
 
     // Named Commands
 
