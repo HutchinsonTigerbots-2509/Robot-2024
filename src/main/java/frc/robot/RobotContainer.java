@@ -42,6 +42,7 @@ import frc.robot.Commands.PresetPos.SafePos;
 import frc.robot.Commands.PresetPos.ShootFarPos;
 import frc.robot.Commands.PresetPos.WallPosition;
 import frc.robot.Commands.PresetPos.FeedStationPosition;
+import frc.robot.Commands.PresetPos.HalfCourtPos;
 import frc.robot.Commands.PresetPos.MainPos;
 import frc.robot.Commands.Shooter.Shoot;
 import frc.robot.Commands.Shooter.ShootReverse;
@@ -69,7 +70,6 @@ public class RobotContainer extends SubsystemBase{
   final Joystick ButtonBoardPrimary = new Joystick(1);
   final Joystick ButtonBoardSecondary = new Joystick(2);
   final CommandSwerveDrivetrain drivetrain = Constants.DriveTrain; // My drivetrain
-  private final Field2d field;
 
 
   // Autochooser
@@ -149,13 +149,18 @@ public class RobotContainer extends SubsystemBase{
     FeedStationPosBtn.onTrue(new FeedStationPosition(sDoor));
 
     Trigger MainPosBtn;
-    MainPosBtn = new JoystickButton(ButtonBoardPrimary, 9);
+    MainPosBtn = new JoystickButton(ButtonBoardPrimary, 1);
     MainPosBtn.onTrue(new MainPos(sDoor));
     //MainPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger ShootFarPosBtn;
     ShootFarPosBtn = new JoystickButton(ButtonBoardPrimary, 10);
     ShootFarPosBtn.onTrue(new ShootFarPos(sShooter, sDoor));
+    //ShootFarPosBtn.onFalse(new SafePos(sShooter, sDoor));
+
+    Trigger HalfCourtPosBtn;
+    HalfCourtPosBtn = new JoystickButton(ButtonBoardPrimary, 9);
+    HalfCourtPosBtn.onTrue(new HalfCourtPos(sDoor));
     //ShootFarPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger ResetGyroBtn;
@@ -168,9 +173,6 @@ public class RobotContainer extends SubsystemBase{
   
   public RobotContainer() {
 
-
-
-    field = new Field2d();
 
     // drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
     // drivetrain.applyRequest(() -> DriveSubsystem.drive.withVelocityX(DriveSubsystem.swerveY(joystick) * DriveSubsystem.speedValue) // Drive forward with
@@ -210,31 +212,23 @@ public class RobotContainer extends SubsystemBase{
     NamedCommands.registerCommand("MainPos", new MainPos(sDoor).withTimeout(2));
     NamedCommands.registerCommand("SafePos", new SafePos(sShooter, sDoor).withTimeout(2));
     NamedCommands.registerCommand("ShootFarPos", new ShootFarPos(sShooter, sDoor).withTimeout(2));
+    NamedCommands.registerCommand("HalfCourtPos", new HalfCourtPos(sDoor).withTimeout(2));
     
     AutoSelect.setDefaultOption("Middle 3 Rings", "Middle 3 Ring");
 
-    AutoSelect.addOption("Middle 2 Rings", "Middle 2 Ring");
+    AutoSelect.addOption("Field Deny", "Field Deny");
 
-    AutoSelect.addOption("Wall GnG", "Wall GnG");
+    //AutoSelect.addOption("Middle 2 Rings", "Middle 2 Ring");
 
-    AutoSelect.addOption("Field Shot1 Set", "Field Long1 Set");
+    //AutoSelect.addOption("Wall GnG", "Wall GnG");
+
+    //AutoSelect.addOption("Field Shot1 Set", "Field Long1 Set");
 
     AutoSelect.addOption("Potato", "Potato");
 
+    AutoSelect.addOption("Potato Shoot", "Potato Shoot");
+
     SmartDashboard.putData(AutoSelect);
-    SmartDashboard.putData(field);
-
-    PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
-      field.setRobotPose(pose);
-    });
-
-    PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-      field.getObject("target pose").setPose(pose);
-    });
-
-    PathPlannerLogging.setLogActivePathCallback((poses) -> {
-      field.getObject("path").setPoses(poses);
-    });
 
 
     configureBindings();

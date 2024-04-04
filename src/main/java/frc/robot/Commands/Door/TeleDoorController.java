@@ -12,10 +12,10 @@ import frc.robot.Subsystems.Door;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TeleDoorController extends PIDCommand {
-  static final double kP = 0.04;
-  // 0.02 before
-  static final double kI = 0.003;
-  // .001 before
+  static final double kP = 0.1;
+  // 0.04 before
+  static final double kI = 0.01;
+  // .003 before
   static final double kD = 0.00;
   /** Creates a new Shoulder. */
   public TeleDoorController(double PreferredAngle, Door door) {

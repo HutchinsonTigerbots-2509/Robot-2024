@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9652475852740565,
-        "y": 3.279034232818822
+        "x": 1.75,
+        "y": 3.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.534499682408779,
-        "y": 1.9439988665997294
+        "x": 3.244596825827032,
+        "y": 2.0219022898816124
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.326257673913349,
-        "y": 2.2367697802442676
+        "x": 6.94693201083977,
+        "y": 4.520382906671662
       },
       "prevControl": {
-        "x": 4.569632192046123,
-        "y": 1.4521437316769061
+        "x": 7.0406187032060235,
+        "y": 2.119661414786453
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Field Long Shot 1 Set Up",
   "previewStartingState": {
-    "rotation": -36.11934084947965,
+    "rotation": -57.37227803370626,
     "velocity": 0
   },
   "useDefaultConstraints": true

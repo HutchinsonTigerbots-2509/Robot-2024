@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Wall Grab and Go",
+    "Field Deny",
     "Middle 3 ring",
     "Middle 2 ring",
     "Field Long Shot 1 Set Up"
@@ -13,5 +14,5 @@
   "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 360.0,
   "defaultMaxAngAccel": 180.0,
-  "maxModuleSpeed": 4.5
+  "maxModuleSpeed": 5.5
 }

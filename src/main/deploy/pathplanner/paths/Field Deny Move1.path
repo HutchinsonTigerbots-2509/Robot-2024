@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7050561319382253,
-        "y": 4.403274541213847
+        "x": 0.7167669684840067,
+        "y": 4.379852868122284
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2788871226815193,
-        "y": 3.0448175019031916
+        "x": 1.5365255266887123,
+        "y": 0.9719994332998654
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.024328973051668,
-        "y": 2.2016372706069234
+        "x": 7.95,
+        "y": 2.3
       },
       "prevControl": {
-        "x": 7.975705479221437,
-        "y": 1.699194501027858
-      },
-      "nextControl": {
-        "x": 8.059461482689011,
-        "y": 2.5646732035261492
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 0.22491183356118344,
-        "y": 3.314166742456167
-      },
-      "prevControl": {
-        "x": 1.2203329399526124,
-        "y": 0.6206743369264216
+        "x": 6.701004443378358,
+        "y": 4.251033666118688
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.40771131249004,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Field Long Shot 1 Set Up",
+  "folder": "Field Deny",
   "previewStartingState": {
-    "rotation": -59.34933204294713,
+    "rotation": -60.57254359681022,
     "velocity": 0
   },
   "useDefaultConstraints": true

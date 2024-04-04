@@ -126,7 +126,7 @@ public class Constants {
     private static final double kBackRightYPosInches = -8.625;
 
     // Gyro
-    public static final int kPigeonID = 0;
+    public static final int kPigeonID = 25;
 
     // Arm
     public static final int kArmId = 16;

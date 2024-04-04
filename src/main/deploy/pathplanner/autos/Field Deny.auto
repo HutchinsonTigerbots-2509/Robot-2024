@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7050561319382253,
-      "y": 4.403274541213847
+      "x": 0.7167669684840067,
+      "y": 4.379852868122284
     },
-    "rotation": -58.626994859891546
+    "rotation": -59.38139459109062
   },
   "command": {
     "type": "sequential",
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Field Long1 Set Move1"
+                  "pathName": "Field Deny Move1"
                 }
               },
               {
@@ -51,7 +51,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootFarPos"
+            "name": "HalfCourtPos"
           }
         },
         {
@@ -63,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Field Long1 Set Move2"
+            "pathName": "Field Deny Move2"
           }
         },
         {
