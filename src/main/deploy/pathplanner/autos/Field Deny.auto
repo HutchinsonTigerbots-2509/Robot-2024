@@ -51,6 +51,18 @@
         {
           "type": "named",
           "data": {
+            "name": "HalfCourtPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "ShootStop"
           }
         },
