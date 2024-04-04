@@ -164,7 +164,7 @@ public class RobotContainer extends SubsystemBase{
     //ShootFarPosBtn.onFalse(new SafePos(sShooter, sDoor));
 
     Trigger ResetGyroBtn;
-  ResetGyroBtn = new JoystickButton(ButtonBoardSecondary, 12);
+  ResetGyroBtn = joystick.button(6); //Right Bumper
   ResetGyroBtn.whileTrue(new ResetGyro(sDrivetrain));
 
     SmartDashboard.putData(new IntakeIn(sIntake));
@@ -217,6 +217,8 @@ public class RobotContainer extends SubsystemBase{
     AutoSelect.setDefaultOption("Middle 3 Rings", "Middle 3 Ring");
 
     AutoSelect.addOption("Field Deny", "Field Deny");
+
+    AutoSelect.addOption("Wall Get Away", "Wall Get Away");
 
     //AutoSelect.addOption("Middle 2 Rings", "Middle 2 Ring");
 

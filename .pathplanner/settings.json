@@ -4,10 +4,11 @@
   "holonomicMode": true,
   "pathFolders": [
     "Wall Grab and Go",
-    "Field Deny",
+    "Wall Get Away",
     "Middle 3 ring",
     "Middle 2 ring",
-    "Field Long Shot 1 Set Up"
+    "Field Long Shot 1 Set Up",
+    "Field Deny"
   ],
   "autoFolders": [],
   "defaultMaxVel": 5.5,
