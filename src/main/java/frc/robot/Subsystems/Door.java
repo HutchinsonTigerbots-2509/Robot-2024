@@ -29,10 +29,13 @@ public class Door extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("DoorPos", getAngle());
+    SmartDashboard.putBoolean("Top Limit", !TopLimitSwitch.get());
+    SmartDashboard.putBoolean("Bottom Limit", !BottomLimitSwitch.get());
     if (!TopLimitSwitch.get()) {
       DoorEncoder.reset();
     }
 
+    
   }
 
   /** Moves the door up off from the ground */

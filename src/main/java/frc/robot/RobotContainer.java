@@ -80,14 +80,14 @@ public class RobotContainer extends SubsystemBase{
 
     final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-    final Telemetry logger = new Telemetry(sDrivetrain.MaxSpeed);
+    //final Telemetry logger = new Telemetry(sDrivetrain.MaxSpeed);
 
 
 
     if (Utils.isSimulation()) {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
     }
-    drivetrain.registerTelemetry(logger::telemeterize);
+    //drivetrain.registerTelemetry(logger::telemeterize);
 
     // Drivetrain
 

@@ -26,12 +26,13 @@ public class Robot extends TimedRobot {
 
   final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  final Telemetry logger = new Telemetry(m_DriveSubsystem.MaxSpeed);
+  //final Telemetry logger = new Telemetry(m_DriveSubsystem.MaxSpeed);
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     m_robotContainer.getDrivetrain().Pigeon2Reset();
+    //m_DriveSubsystem.removeDefaultCommand();
   }
 
   @Override
