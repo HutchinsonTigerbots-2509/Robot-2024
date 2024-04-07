@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -26,7 +27,6 @@ public class Robot extends TimedRobot {
 
   final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  //final Telemetry logger = new Telemetry(m_DriveSubsystem.MaxSpeed);
 
   @Override
   public void robotInit() {
@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
+    SignalLogger.stop();
   }
 
   @Override

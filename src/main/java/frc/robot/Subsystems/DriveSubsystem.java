@@ -37,7 +37,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  final Telemetry logger = new Telemetry(MaxSpeed);
 
   TalonFX FrontLeftSteerMotor = new TalonFX(Constants.kFrontLeftSteerMotorId);    
   TalonFX FrontRightSteerMotor = new TalonFX(Constants.kFrontRightSteerMotorId);    
