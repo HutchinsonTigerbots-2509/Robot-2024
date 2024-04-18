@@ -6,9 +6,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.ClosedLoopOutputType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
-import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Commands.Drivetrain.CommandSwerveDrivetrain;
 
@@ -66,7 +64,6 @@ public class Constants {
     private static final double kSteerFrictionVoltage = 0.25;
     private static final double kDriveFrictionVoltage = 0.25;
     
-    private static AHRS navx = new AHRS();
     
 
     private static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
@@ -127,6 +124,9 @@ public class Constants {
 
     private static final double kBackRightXPosInches = -8.625;
     private static final double kBackRightYPosInches = -8.625;
+
+    // Gyro
+    public static final int kPigeonID = 25;
 
     // Arm
     public static final int kArmId = 16;

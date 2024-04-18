@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7050561319382253,
+      "y": 4.403274541213847
+    },
+    "rotation": -58.626994859891546
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Field Long1 Set Move1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootFarPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Field Long1 Set Move2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

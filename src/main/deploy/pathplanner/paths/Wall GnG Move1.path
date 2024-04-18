@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.6699236223008809,
+        "y": 6.722020177278586
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.2671762861357376,
+        "y": 7.108477783289376
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.9229831326995024,
+        "y": 7.003080254377342
+      },
+      "prevControl": {
+        "x": 1.3023087957730821,
+        "y": 7.014791090923124
+      },
+      "nextControl": {
+        "x": 2.5436574696259227,
+        "y": 6.99136941783156
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.67,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 2.4709157787217144,
+        "y": 6.982433745181328
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Wall Grab and Go",
+  "previewStartingState": {
+    "rotation": 60.25511870305779,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

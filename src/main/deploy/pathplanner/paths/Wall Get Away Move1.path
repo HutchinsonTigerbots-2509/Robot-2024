@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7401886415755699,
+        "y": 6.698598504187022
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.8221644973960404,
+        "y": 7.436381206571257
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.7401886415755699,
+        "y": 7.612043754753521
+      },
+      "prevControl": {
+        "x": 0.8690078435791662,
+        "y": 7.190453639105386
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Wall Get Away",
+  "previewStartingState": {
+    "rotation": 59.8586144479247,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

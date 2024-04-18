@@ -5,9 +5,7 @@
 package frc.robot.Commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.Climber;
-import frc.robot.Subsystems.Intake;
 
 public class ClimbExtend extends Command {
   /** Creates a new GrabClose. */

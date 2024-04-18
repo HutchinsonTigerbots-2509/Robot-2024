@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7050561319382253,
+        "y": 4.403274541213847
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.2788871226815193,
+        "y": 3.0448175019031916
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.024328973051668,
+        "y": 2.2016372706069234
+      },
+      "prevControl": {
+        "x": 7.975705479221437,
+        "y": 1.699194501027858
+      },
+      "nextControl": {
+        "x": 8.059461482689011,
+        "y": 2.5646732035261492
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.22491183356118344,
+        "y": 3.314166742456167
+      },
+      "prevControl": {
+        "x": 1.2203329399526124,
+        "y": 0.6206743369264216
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -55.40771131249004,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Field Long Shot 1 Set Up",
+  "previewStartingState": {
+    "rotation": -59.34933204294713,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

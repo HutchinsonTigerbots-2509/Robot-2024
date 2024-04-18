@@ -2,35 +2,39 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Commands.Shooter;
+package frc.robot.Commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.Shooter;
+import frc.robot.Subsystems.Intake;
 
-public class Stop extends Command {
+public class IntakeInAuto extends Command {
   /** Creates a new GrabClose. */
-  private Shooter shooter;
+  private Intake intake;
 
-  public Stop(Shooter pShooter) {
+  public IntakeInAuto(Intake pIntake) {
 
-    shooter = pShooter;
+    intake = pIntake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
+    addRequirements(pIntake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.IntakeInAuto();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.Stop();
+    intake.IntakeInAuto();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.IntakeStop();
+  }
 
   // Returns true when the command should end.
   @Override

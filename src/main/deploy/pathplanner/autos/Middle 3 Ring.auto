@@ -1,0 +1,124 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3509924162705473,
+      "y": 5.541275082550166
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "M3 Move1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "M3 Move2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "M3 Move3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "M3 Move4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStop"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,0 +1,80 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7050561319382253,
+      "y": 4.379852868122284
+    },
+    "rotation": -61.821409890040805
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Field Deny Move1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIn"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HalfCourtPos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeShoot.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MainPos"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

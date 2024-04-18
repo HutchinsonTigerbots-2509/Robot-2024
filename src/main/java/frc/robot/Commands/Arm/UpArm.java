@@ -5,9 +5,7 @@
 package frc.robot.Commands.Arm;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.Door;
-import frc.robot.Subsystems.Intake;
 
 public class UpArm extends Command {
   /** Creates a new GrabClose. */

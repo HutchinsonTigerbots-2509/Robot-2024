@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3842846515935527,
+        "y": 5.539225686154654
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.011176022352046,
+        "y": 6.808190539458002
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.096619836606291,
+        "y": 4.42669621430541
+      },
+      "prevControl": {
+        "x": 3.9874531010124015,
+        "y": 5.333396006100415
+      },
+      "nextControl": {
+        "x": 6.572185241374762,
+        "y": 3.2204800500899147
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.473919655399938,
+        "y": 4.11050362756931
+      },
+      "prevControl": {
+        "x": 6.87666699156508,
+        "y": 3.72404602155852
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 180.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Middle 2 ring",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

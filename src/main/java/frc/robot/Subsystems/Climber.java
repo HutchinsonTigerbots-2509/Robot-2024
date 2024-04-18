@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 
@@ -16,8 +15,6 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
 
   public TalonSRX Climber = new TalonSRX(Constants.kClimbID);
-
-  //public DigitalInput ClimbSwitch = new DigitalInput(Constants.kCLimbSwitchID);
 
   public Climber() {
     Climber.setNeutralMode(NeutralMode.Brake);
@@ -28,14 +25,17 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /** Moves climber up to grab chain */
   public void climbExtend() {
     Climber.set(ControlMode.PercentOutput, .3);
   }
 
+  /** Pulls up robot by bringing climber down */
   public void climbRetract() {
       Climber.set(ControlMode.PercentOutput, -.3);
   }
 
+  /** Turns off climber */
   public void climbStop() {
     Climber.set(ControlMode.PercentOutput, 0);
   }

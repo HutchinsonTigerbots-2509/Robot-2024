@@ -4,7 +4,6 @@
 
 package frc.robot.Subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Constants;
 
@@ -22,16 +21,22 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /** Turns on the shooter to 100%*/
   public void Shoot(double Velocity) {
-    // Shooter.set(ControlMode.Velocity, Velocity);
     Shooter.set(ControlMode.PercentOutput,-1);
   }
 
-  public void ShootOut(double Velocity) {
+  /** Turns on the Shooter at -100% */
+  public void ShootReverse(double Velocity) {
     Shooter.set(ControlMode.PercentOutput, 1);
   }
 
+  /** Turns on the Shooter at the given speed */
+  public void ShootSpeed(double speed) {
+    Shooter.set(ControlMode.PercentOutput, speed);
+  }
 
+  /** Turns off the shooter */
   public void Stop() {
     Shooter.set(ControlMode.Velocity, 0);
   }
