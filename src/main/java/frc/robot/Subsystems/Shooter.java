@@ -36,6 +36,10 @@ public class Shooter extends SubsystemBase {
     Shooter.set(ControlMode.PercentOutput, speed);
   }
 
+  public void ShootVelocity(double Velocity) {
+    Shooter.set(ControlMode.PercentOutput, Velocity);
+  }
+
   /** Turns off the shooter */
   public void Stop() {
     Shooter.set(ControlMode.Velocity, 0);
